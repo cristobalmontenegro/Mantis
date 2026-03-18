@@ -1,0 +1,25 @@
+<?php
+   $s_plugin_CustomReports_custom_reports = 'Reportes Personalizados';
+   $s_plugin_CustomReports_custom_report = 'Reporte Personalizado';
+   $s_plugin_CustomReports_configuration = 'Reportes Personalizados: configuración';
+   $s_plugin_CustomReports_load_report = 'Cargar Reporte';
+   $s_plugin_CustomReports_export_to_excel = 'Exportar a Excel';
+   $s_plugin_CustomReports_immediate_export = 'Exportar inmediatamente a Excel';
+   $s_plugin_CustomReports_include_period_parameters = 'Período como parámetro';
+   $s_plugin_CustomReports_period_start = 'Período de inicio';
+   $s_plugin_CustomReports_period_end = 'Período de finalización';
+   $s_plugin_CustomReports_include_period_parameters_info = 'Le permite usar :period_start y :period_end en la query. Si están puestos, el usuario deberá ingresar un período antes de cargar el reporte.';
+
+   $s_plugin_CustomReports_add_new_report = 'Agregar nuevo reporte';
+   $s_plugin_CustomReports_report_name = 'Nombre del Reporte';
+   $s_plugin_CustomReports_view_threshold = 'Permisos de lectura';
+   $s_plugin_CustomReports_query = 'Query';
+
+   $s_plugin_CustomReports_manage_reports = 'Administrar reportes';
+   $s_plugin_CustomReports_general_configuration = 'Configuración del plugin';
+   $s_plugin_CustomReports_admin_threshold = 'Permisos de Administración';
+   $s_plugin_CustomReports_view_custom_reports_threshold = 'Permisos de visualización de reportes personalizados';
+
+   $s_plugin_CustomReports_update_successful = 'Query actualizado correctamente.';
+   $s_plugin_CustomReports_query_invalid_keywords = 'Query debe contener solamente SELECT\'s y no sentencias DDL o DCL.';
+?>
