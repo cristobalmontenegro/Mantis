@@ -2,6 +2,7 @@
 $s_plugin_Attachments_title				= 'Re-instate Attachment section';
 $s_plugin_Attachments_add_file_button	= 'Upload selected file';
 $s_plugin_Attachments_customized		= 'Use Customized Setup';
+$s_plugin_Attachments_config			= 'Attachments Configuration';
 $s_plugin_Attachments_upload_title		= 'Upload Document';
 $s_plugin_Attachments_select_file		= 'Select File';
 $s_plugin_Attachments_upload_btn		= 'Upload';

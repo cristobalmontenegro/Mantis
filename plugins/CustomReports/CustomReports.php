@@ -23,7 +23,7 @@ class CustomReportsPlugin extends MantisPlugin {
 
     function resources() {
         // Esto inserta el archivo JS de forma segura para el CSP
-        return '<script type="text/javascript" src="' . plugin_file( 'custom_reports.js' ) . '"></script>';
+        return '<script type="text/javascript" src="' . htmlspecialchars( plugin_file( 'custom_reports.js' ), ENT_QUOTES, 'UTF-8' ) . '"></script>';
     }
 
     public function custom_report_menu( $p_event ) {

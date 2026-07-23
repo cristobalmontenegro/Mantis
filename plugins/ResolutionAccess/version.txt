@@ -1,3 +1,3 @@
-Version: 1.0  #
-Devurl: https://github.com/cristobalmontenegro/Mantis/blob/main/plugins/ResolutionAccess/version.txt #
-Location: https://github.com/cristobalmontenegro/Mantis/archive/refs/heads/main.zip #
+Version: 1.0
+Devurl: https://github.com/cristobalmontenegro/Mantis/blob/main/plugins/ResolutionAccess/version.txt
+Location: https://github.com/cristobalmontenegro/Mantis/archive/refs/heads/main.zip

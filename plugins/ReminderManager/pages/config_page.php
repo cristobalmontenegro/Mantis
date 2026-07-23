@@ -48,10 +48,10 @@ if ( $t_rule_id > 0 ) {
             <div class="widget-main">
                 <p><?php echo plugin_lang_get( 'cron_hint' ) ?></p>
                 <div class="well well-sm">
-                    <strong>CLI (Recomendado):</strong><br />
+                    <strong><?php echo plugin_lang_get( 'cli_recommended' ) ?>:</strong><br />
                     <code><?php echo sprintf( plugin_lang_get( 'cron_command' ), dirname( __DIR__ ) . DIRECTORY_SEPARATOR . 'scripts' . DIRECTORY_SEPARATOR . 'process.php' ) ?></code>
                     <br /><br />
-                    <strong>HTTP (Web):</strong><br />
+                    <strong><?php echo plugin_lang_get( 'http_web' ) ?>:</strong><br />
                     <code><?php echo string_display_line( config_get( 'path' ) ) . 'plugins/ReminderManager/scripts/process.php?token=' . plugin_config_get( 'cron_token' ) ?></code>
                 </div>
             </div>
@@ -165,13 +165,13 @@ if ( $t_rule_id > 0 ) {
                                     <textarea id="template_body_id" name="template_body" class="form-control" rows="8" required><?php echo string_textarea( $t_edit_rule['template_body'] ) ?></textarea>
                                     
                                     <div style="margin-top: 8px; margin-bottom: 8px;">
-                                        <span class="help-block" style="display:inline; margin-right:10px;">Insertar:</span>
-                                        <button type="button" class="btn btn-xs btn-white btn-info insert-placeholder-btn" data-placeholder="[[id]]">ID</button>
-                                        <button type="button" class="btn btn-xs btn-white btn-info insert-placeholder-btn" data-placeholder="[[summary]]">Resumen</button>
-                                        <button type="button" class="btn btn-xs btn-white btn-info insert-placeholder-btn" data-placeholder="[[status]]">Estado</button>
-                                        <button type="button" class="btn btn-xs btn-white btn-info insert-placeholder-btn" data-placeholder="[[handler]]">Asignado</button>
-                                        <button type="button" class="btn btn-xs btn-white btn-info insert-placeholder-btn" data-placeholder="[[reporter]]">Informador</button>
-                                        <button type="button" class="btn btn-xs btn-white btn-info insert-placeholder-btn" data-placeholder="[[link]]">Enlace</button>
+                                        <span class="help-block" style="display:inline; margin-right:10px;"><?php echo plugin_lang_get( 'insert' ) ?></span>
+                                        <button type="button" class="btn btn-xs btn-white btn-info insert-placeholder-btn" data-placeholder="[[id]]"><?php echo plugin_lang_get( 'insert_id' ) ?></button>
+                                        <button type="button" class="btn btn-xs btn-white btn-info insert-placeholder-btn" data-placeholder="[[summary]]"><?php echo plugin_lang_get( 'insert_summary' ) ?></button>
+                                        <button type="button" class="btn btn-xs btn-white btn-info insert-placeholder-btn" data-placeholder="[[status]]"><?php echo plugin_lang_get( 'insert_status' ) ?></button>
+                                        <button type="button" class="btn btn-xs btn-white btn-info insert-placeholder-btn" data-placeholder="[[handler]]"><?php echo plugin_lang_get( 'insert_handler' ) ?></button>
+                                        <button type="button" class="btn btn-xs btn-white btn-info insert-placeholder-btn" data-placeholder="[[reporter]]"><?php echo plugin_lang_get( 'insert_reporter' ) ?></button>
+                                        <button type="button" class="btn btn-xs btn-white btn-info insert-placeholder-btn" data-placeholder="[[link]]"><?php echo plugin_lang_get( 'insert_link' ) ?></button>
                                     </div>
 
                                     <span class="help-block"><?php echo plugin_lang_get( 'placeholder_hint' ) ?> | [[link]] (<?php echo plugin_lang_get( 'placeholder_link' ) ?>)</span>
@@ -214,6 +214,6 @@ if ( $t_rule_id > 0 ) {
     </div>
 </div>
 
-<script type="text/javascript" src="<?php echo plugin_file( 'reminder.js' ); ?>"></script>
+<script type="text/javascript" src="<?php echo htmlspecialchars( plugin_file( 'reminder.js' ), ENT_QUOTES, 'UTF-8' ); ?>"></script>
 <?php
 layout_page_end();

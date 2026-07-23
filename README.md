@@ -1,63 +1,103 @@
-# MantisBT Plugins Collection
+Mantis Bug Tracker (MantisBT)
+=============================
 
-A collection of custom plugins for [Mantis Bug Tracker](https://www.mantisbt.org/) (2.X), developed and maintained by **Cristobal Montenegro**.
+[![Build Status](https://github.com/mantisbt/mantisbt/actions/workflows/mantisbt.yml/badge.svg?branch=master)](https://github.com/mantisbt/mantisbt/actions/workflows/mantisbt.yml)
+[![Gitter](https://img.shields.io/gitter/room/mantisbt/mantisbt.svg?logo=gitter)](https://gitter.im/mantisbt/mantisbt)
 
-Each plugin is designed to extend MantisBT functionality for real-world project management needs.
+Screenshots
+-----------
 
-[GitHub Profile](https://github.com/cristobalmontenegro)
+![Screenshot of View Issues page](doc/modern_view_issues.png)
 
----
+![Screenshot of My View page](doc/modern_my_view.png)
 
-## Plugins
+![Screenshot of View Issue Details page](doc/modern_view_issue.png)
 
-| Plugin | Description (EN) | Descripción (ES) |
-|--------|------------------|-------------------|
-| [Attachments](plugins/Attachments/) | Dedicated attachments section for issues, upload files without notes. | Sección dedicada de adjuntos para casos, sube archivos sin nota. |
-| [BugRelationPriority](plugins/BugRelationPriority/) | Adds a priority column to the bug relations table. | Agrega una columna de prioridad en la tabla de relaciones. |
-| [CustomReports](plugins/CustomReports/) | Create, manage and view custom SQL reports from MantisBT. | Crea, administra y visualiza reportes SQL personalizados. |
-| [ReminderManager](plugins/ReminderManager/) | Automated email reminders based on custom date fields via cron. | Recordatorios automáticos por correo basados en campos de fecha personalizados. |
-| [ResolutionAccess](plugins/ResolutionAccess/) | Role-based access control for the Resolution field. | Control de acceso por rol para el campo de Resolución. |
+Documentation
+-------------
 
----
+For complete documentation, please read the administration guide included with
+this release in the `doc/<lang>` directory.  The guide is available in text, PDF,
+and HTML formats.
 
-## 🇬🇧 English
+Requirements
+------------
 
-### About
+* MySQL 5.5.35+, PostgreSQL 9.2+, or other supported database
+* PHP 7.4.0+
+* a webserver (e.g. Apache or IIS)
 
-This repository contains MantisBT plugins created to solve specific operational needs. They are built on top of the MantisBT Plugin API (MantisPlugin class) and are compatible with MantisBT 2.X environments.
+Please refer to section 2.2 in the administration guide for further details.
 
-### Installation
+Installation
+------------
 
-1. Download or clone this repository.
-2. Copy the desired plugin folder into the `plugins/` directory of your MantisBT installation.
-3. Log in as Administrator and go to **Manage > Manage Plugins**.
-4. Find the plugin in the list of Available Plugins and click **Install**.
+* Extract the tarball into a location readable by your web server
+* Open your browser and navigate to `https://example.com/mantisbt/admin/check/index.php` to verify
+  that your web server is compatible with MantisBT and configured correctly.
+* Open your browser and navigate to `https://example.com/mantisbt/admin/install.php` to start the
+  database installation process.
+* Select the database type and enter the credentials to access the database
+* Click install/upgrade
+* Installation is complete -- you may need to copy the default configuration
+  to `mantisbt/config/config_inc.php` if your web server does not have write access
+* Remove the `admin` directory from within the MantisBT installation path. The
+  scripts within this directory should not be accessible on a live MantisBT
+  site or on any installation that is accessible via the Internet.
 
-### Requirements
+UPGRADING
+---------
 
-- MantisBT 2.0.0 or higher
-- PHP compatible with your MantisBT server
+* Backup your existing installation and database -- really!
+* Extract the tarball into a clean directory; do not extract into an existing
+  installation, as some files have been moved or deleted between releases
+* Copy your configuration from the old installation to the new directory,
+  including `config_inc.php`, `custom_strings_inc.php`, `custom_relationships_inc.php`,
+  `custom_functions_inc.php` and `custom_constants_inc.php` if they exist
+* Point your browser to `https://example.com/mantisbt/admin/check/index.php` to ensure that
+  your webserver is compatible with MantisBT and configured correctly
+* Point your browser to `https://example.com/mantisbt/admin/install.php` to upgrade
+  the database schema
+* Click install/upgrade
+* Remove the `admin` directory from within the MantisBT installation path. The
+  scripts within this directory should not be accessible on a live MantisBT
+  site or on any installation that is accessible via the Internet.
+* Upgrading is complete
 
----
+CONFIGURATION
+-------------
 
-## 🇪🇸 En Español
+This file contains information to help you customize MantisBT.  A more
+detailed doc can be found at https://www.mantisbt.org/docs/
 
-### Acerca de
+* `config_defaults_inc.php`
+  * this file contains the default values for all the site-wide variables.
+* `config/config_inc.php`
+  * You should use this file to change config variable values.  Your
+    values from this file will be used instead of the defaults.  This file
+    will not be overwritten when you upgrade, but config_defaults_inc.php will.
+    Look at `config/config_inc.php.sample` for an example.
 
-Este repositorio contiene plugins para MantisBT creados para resolver necesidades operativas específicas. Están construidos sobre la API de Plugins de MantisBT (clase MantisPlugin) y son compatibles con entornos MantisBT 2.X.
+* `core/*_api.php` - these files contains all the API library functions.
 
-### Instalación
+* global variables are prefixed by `g_`
+* parameters in functions are prefixed with `p_` -- parameters shouldn't be modified within the function.
+* form variables are prefixed with `f_`
+* variables that have been cleaned for db insertiong are prefixed with `c_`
+* temporary variables are prefixed with `t_`.
+* count variables have the word `count` in the variable name
 
-1. Descarga o clona este repositorio.
-2. Copia la carpeta del plugin deseado al directorio `plugins/` de tu instalación de MantisBT.
-3. Inicia sesión como Administrador y ve a **Administrar > Administrar Plugins**.
-4. Busca el plugin en la lista de Plugins Disponibles y haz clic en **Instalar**.
+More detail can be seen in the coding guidelines at:
+https://www.mantisbt.org/guidelines.php
 
-### Requisitos
+* The files are split into three basic categories, viewable pages,
+  include files and pure scripts. Examining the viewable pages (suffix `_page`)
+  should make the basic file format fairly easy to see.  The file names
+  themselves should make their purpose apparent.  The approach used is to break the
+  work into many small files rather than have a small number of really
+  large files.
 
-- MantisBT 2.0.0 o superior
-- PHP compatible con tu servidor MantisBT
+* You can set `$g_top_include_page` and `$g_bottom_include_page`
+  to alter what should be visible at the top and bottom of each page.
 
----
-
-*Developed by [Cristobal Montenegro](https://github.com/cristobalmontenegro)*
+* All files were edited with TAB SPACES set to 4.

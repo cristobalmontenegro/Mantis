@@ -5,7 +5,7 @@ while (ob_get_level()) { ob_end_clean(); }
 error_reporting(0);
 @ini_set('display_errors', 0);
 
-# Validación de seguridad añadida
+auth_reauthenticate();
 access_ensure_global_level( plugin_config_get( 'view_custom_reports_threshold' ) );
 
 # 2. CAPTURA DE DATOS BÁSICOS
@@ -20,11 +20,14 @@ $t_sort_dir = gpc_get_string('sort_dir', '');
 
 # 3. EJECUCIÓN DE QUERY ORIGINAL
 $t_table = plugin_table('reports');
-$t_query_meta = "SELECT * FROM $t_table WHERE id = $t_report_id";
-$t_res_meta = db_query($t_query_meta);
+$t_query_meta = "SELECT * FROM $t_table WHERE id = " . db_param();
+$t_res_meta = db_query($t_query_meta, array( $t_report_id ));
 $t_row = db_fetch_array($t_res_meta);
 
 if ($t_row) {
+    # Verificar permiso específico de este reporte
+    access_ensure_global_level( (int)$t_row['view_threshold'] );
+
     $t_sql = htmlspecialchars_decode($t_row['query'], ENT_QUOTES);
     $t_sql = rtrim(trim($t_sql), ';');
 

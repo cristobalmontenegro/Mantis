@@ -36,6 +36,8 @@ class ReminderManagerPlugin extends MantisPlugin {
 	function config() {
 		return array(
 			'cron_token' => 'SECRET_TOKEN_REPLACE_ME_9f8e7d6c5b4a3928172635445566778899aabbccddeeff',
+			'admin_username' => 'administrator',
+			'default_subject_prefix' => '[Reminder]',
 		);
 	}
 

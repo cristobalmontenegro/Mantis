@@ -20,7 +20,8 @@ require_once( $t_core_path );
 
 # ACCIÓN CRÍTICA: Autenticar el script como administrador para que Mantis permita leer los casos
 if ( function_exists( 'auth_attempt_script_login' ) ) {
-	auth_attempt_script_login( 'administrator' );
+	$t_admin_user = plugin_config_get( 'admin_username', 'administrator' );
+	auth_attempt_script_login( $t_admin_user );
 }
 
 # Ensure we are running from CLI or authorized with a valid token
@@ -110,7 +111,8 @@ function process_reminder( $p_bug_id, $p_rule_row ) {
 	$t_message = str_ireplace( $t_search, $t_replace, $t_template );
 	
 	if ( empty( $t_template_subject ) ) {
-		$t_subject = "[Recordatorio] Caso $p_bug_id: " . $t_bug->summary;
+		$t_default_subject = plugin_config_get( 'default_subject_prefix', '[Reminder]' );
+		$t_subject = "$t_default_subject Bug $p_bug_id: " . $t_bug->summary;
 	} else {
 		$t_subject = str_ireplace( $t_search, $t_replace, $t_template_subject );
 	}

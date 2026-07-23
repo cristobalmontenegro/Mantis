@@ -1,5 +1,11 @@
 <?php
-# No tocamos buffers aquí para no romper la carga de la página
+auth_reauthenticate();
+
+# Validar CSRF solo cuando se envía el form (POST con report_id seleccionado)
+if ( isset( $_POST['report_id'] ) ) {
+    form_security_validate( 'plugin_CustomReports_execute' );
+}
+
 access_ensure_global_level( plugin_config_get( 'view_custom_reports_threshold' ) );
 
 $f_selected_report_id = gpc_get_int( 'report_id', 0 );
@@ -18,6 +24,8 @@ if ( $f_selected_report_id > 0 ) {
     $f_selected_report = db_fetch_array( $t_query_result );
 
     if ( $f_selected_report ) {
+        # Verificar permiso específico de este reporte
+        access_ensure_global_level( (int)$f_selected_report['view_threshold'] );
         $t_report_query = htmlspecialchars_decode( $f_selected_report['query'], ENT_QUOTES );
         $t_report_query = rtrim( trim($t_report_query), ';' );
 
@@ -46,6 +54,7 @@ layout_page_begin();
         <div class="widget-body">
             <div class="widget-main">
                 <form action="<?php echo plugin_page( 'custom_reports_page' ) ?>" method="post" class="form-inline">
+                    <?php echo form_security_field( 'plugin_CustomReports_execute' ) ?>
                     <select id="report_id_select" name="report_id" class="form-control input-sm" data-url="<?php echo plugin_page( 'action_get_report_data', false ) ?>">
                         <?php print_custom_report_option_list( $f_selected_report_id ) ?>
                     </select>

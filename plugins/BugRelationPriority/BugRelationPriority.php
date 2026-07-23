@@ -20,7 +20,7 @@ class BugRelationPriorityPlugin extends MantisPlugin {
 
     function inject_js_file( $p_event ) {
         if ( basename($_SERVER['SCRIPT_NAME']) === 'view.php' ) {
-            return '<script src="' . plugin_file( 'priority.js' ) . '"></script>';
+            return '<script src="' . htmlspecialchars( plugin_file( 'priority.js' ), ENT_QUOTES, 'UTF-8' ) . '"></script>';
         }
     }
 
