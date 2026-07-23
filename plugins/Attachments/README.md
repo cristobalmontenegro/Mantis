@@ -1,5 +1,5 @@
 # MantisBT Plugin Attachments 
-**Version 3.0**
+**Version 3.1**
 *Compatible with MantisBT 2.X (Verified 2.28)*
 
 **Credits:** Based on the 2021-2024 plugin by [Cas Nuy](http://www.NUY.info).
@@ -14,7 +14,7 @@ This plugin allows you to re-instate the dedicated attachments section in your M
 
 Please note: Attachments uploaded this way are not shown in the activities section by default, although they appear in their own dedicated visual block just below the activities section when viewing an issue.
 
-This version (3.0) incorporates essential bug fixes and ensures full compatibility with MantisBT 2.28 and modern 2.X environments.
+This version (3.1) adds upload date display for each attachment and ensures full compatibility with MantisBT 2.28 and modern 2.X environments.
 
 ### Installation
 1. Upload the `Attachments` folder to the `plugins/` directory of your MantisBT installation.
@@ -62,7 +62,7 @@ Este plugin te permite reinstaurar la sección dedicada de adjuntos en los casos
 
 Ten en cuenta que: Los adjuntos subidos de esta manera no se muestran en la sección de actividades por defecto, pero aparecerán en su propio bloque visual dedicado justo debajo de la sección de actividades cuando visualices un caso.
 
-Esta versión (3.0) incorpora correcciones de errores esenciales y asegura compatibilidad total con MantisBT 2.28 y entornos modernos 2.X.
+Esta versión (3.1) agrega visualización de fecha de carga para cada adjunto y asegura compatibilidad total con MantisBT 2.28 y entornos modernos 2.X.
 
 ### Instalación
 1. Sube la carpeta `Attachments` al directorio `plugins/` de tu instalación de MantisBT.
@@ -104,6 +104,7 @@ for( $i=0; $i < $t_activities_count; $i++ ) {
 ---
 
 ### Change Log / Historial de Cambios
+- **3.1:** Added upload date display for each attachment using EVENT_VIEW_BUG_ATTACHMENT hook (no core changes required).
 - **3.0:** Verified 2.2X compatibility (tested on 2.28), bug fixes. Maintained by Cristobal Montenegro. 
 - **2.25:** Added config option and improved readme.
 - **2.20:** Made this section available while editing an issue.
