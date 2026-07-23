@@ -22,4 +22,6 @@
 
    $s_plugin_CustomReports_update_successful = 'Query updated successfully.';
    $s_plugin_CustomReports_query_invalid_keywords = 'Query may only contain SELECT\'s and no DDL or DCL keywords.';
+   $s_plugin_CustomReports_smart_filter_placeholder = 'Filter (e.g. error -closed)...';
+   $s_plugin_CustomReports_select_report = '--- Select report ---';
 ?>

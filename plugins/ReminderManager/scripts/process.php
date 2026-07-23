@@ -3,6 +3,7 @@
 # This script should be executed via system cron (e.g., every 5-15 minutes)
 
 # MantisBT initialization
+# Assuming this script is in plugins/ReminderManager/scripts/process.php
 $t_core_path = dirname( dirname( dirname( dirname( __FILE__ ) ) ) ) . DIRECTORY_SEPARATOR . 'core.php';
 
 # Fallback for development structure in this workspace

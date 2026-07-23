@@ -1,7 +1,7 @@
 <?php
 function print_custom_report_option_list( $p_selected_report = null ) {
     $t_custom_reports = custom_reports_get_all();
-    echo '<option value="">--- Seleccione ---</option>';
+    echo '<option value="">' . plugin_lang_get( 'select_report' ) . '</option>';
     foreach ( $t_custom_reports as $t_report ) {
         $t_selected = ( $t_report['id'] == $p_selected_report ) ? 'selected="selected"' : '';
         echo '<option value="' . (int)$t_report['id'] . '" ' . $t_selected . '>' . string_display_line($t_report['name']) . '</option>';

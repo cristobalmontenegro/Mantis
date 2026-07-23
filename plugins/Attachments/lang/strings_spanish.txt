@@ -1,0 +1,13 @@
+<?php
+$s_plugin_Attachments_title				= 'Reinstalar sección de Adjuntos';
+$s_plugin_Attachments_add_file_button	= 'Subir archivo seleccionado';
+$s_plugin_Attachments_customized		= 'Usar ubicación de archivos nativa';
+$s_plugin_Attachments_config			= 'Configuración de Adjuntos';
+$s_plugin_Attachments_upload_title		= 'Subir Documento al Expediente';
+$s_plugin_Attachments_select_file		= 'Seleccionar Archivo';
+$s_plugin_Attachments_upload_btn		= 'Subir';
+$s_plugin_Attachments_max_size			= 'Máximo:';
+$s_plugin_Attachments_select_pdf		= 'Seleccionar PDF';
+$s_plugin_Attachments_select_any		= 'Seleccionar Archivo';
+$s_plugin_Attachments_pdf_only_label	= 'Solo PDF';
+$s_plugin_Attachments_pdf_only_desc		= 'Cuando está activado, solo se permiten archivos PDF a través del formulario del plugin.';

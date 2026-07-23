@@ -1,0 +1,3 @@
+Version: 2.0.3  #
+Devurl: https://github.com/cristobalmontenegro/Mantis/blob/main/plugins/BugRelationPriority/version.txt #
+Location: https://github.com/cristobalmontenegro/Mantis/archive/refs/heads/main.zip #

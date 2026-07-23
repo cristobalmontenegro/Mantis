@@ -1,4 +1,4 @@
 <?php
 $s_plugin_ResolutionAccess_title = 'Resolution Access Control';
 $s_plugin_ResolutionAccess_readonly_threshold_label = 'Readonly Threshold';
-$s_plugin_ResolutionAccess_readonly_threshold_desc = 'Users with this access level or below will have the resolution field forced to readonly on the bug update page.';
+$s_plugin_ResolutionAccess_readonly_threshold_desc = 'Users with this access level or below will have the resolution field forced to readonly on the bug update and status change pages.';

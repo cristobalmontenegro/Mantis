@@ -3,8 +3,10 @@
 access_ensure_global_level( plugin_config_get( 'view_custom_reports_threshold' ) );
 
 $f_selected_report_id = gpc_get_int( 'report_id', 0 );
-$f_param_period_start = gpc_get_string( 'param_period_start', first_day_of_month( -1 ) );
-$f_param_period_end   = gpc_get_string( 'param_period_end', last_day_of_month( -1 ) );
+
+# Sanitización estricta de variables de fecha (previene Inyección SQL sin usar DB)
+$f_param_period_start = preg_replace( '/[^0-9\-\/ :]/', '', gpc_get_string( 'param_period_start', first_day_of_month( -1 ) ) );
+$f_param_period_end   = preg_replace( '/[^0-9\-\/ :]/', '', gpc_get_string( 'param_period_end', last_day_of_month( -1 ) ) );
 
 $t_result = array();
 $f_selected_report = array();
@@ -68,9 +70,15 @@ layout_page_begin();
         <div class="widget-box widget-color-blue2">
             <div class="widget-header widget-header-small">
                 <h4 class="widget-title lighter"><i class="fa fa-table"></i> <?php echo string_display_line($f_selected_report['name']); ?></h4>
-                <div class="widget-toolbar no-border">
-                    <a href="<?php echo plugin_page( 'export_report_page' ) . '&report_id=' . $f_selected_report_id . '&param_period_start=' . $f_param_period_start . '&param_period_end=' . $f_param_period_end; ?>" 
-                       class="btn btn-sm btn-success btn-round" style="background-color: #449d44 !important; border-color: #398439 !important; color: white !important;">
+                <div class="widget-toolbar no-border" style="line-height: 35px; padding: 2px 10px 0 0;">
+                    
+<div style="display: inline-block; position: relative; margin-right: 10px; vertical-align: middle;">
+    <i class="fa fa-search" style="position: absolute; left: 10px; top: 8px; color: #888; z-index: 2; pointer-events: none;"></i>
+    <input type="text" id="smart_filter" placeholder="<?php echo plugin_lang_get( 'smart_filter_placeholder' ) ?>" class="form-control input-sm" autocomplete="off" style="width: 250px; padding-left: 32px !important; display: inline-block;" />
+</div>
+                    
+                    <a id="export_btn" href="<?php echo plugin_page( 'export_report_page' ) . '&report_id=' . $f_selected_report_id . '&param_period_start=' . $f_param_period_start . '&param_period_end=' . $f_param_period_end; ?>" 
+                       class="btn btn-sm btn-success btn-round" style="background-color: #449d44 !important; border-color: #398439 !important; color: white !important; display: inline-block; vertical-align: middle;">
                         <i class="fa fa-file-excel-o"></i> <strong><?php echo lang_get( 'plugin_CustomReports_export_to_excel' ) ?></strong>
                     </a>
                 </div>
@@ -78,10 +86,16 @@ layout_page_begin();
             <div class="widget-body">
                 <div class="widget-main no-padding">
                     <div class="table-responsive" style="max-height: 70vh; overflow-y: auto;">
-                        <table class="table table-striped table-bordered table-condensed table-hover">
+                        <table class="table table-striped table-bordered table-condensed table-hover" id="custom_report_table">
                             <thead>
                                 <tr class="row-category">
-                                    <?php foreach (array_keys($t_result[0]) as $k) echo "<th>" . string_display_line($k) . "</th>"; ?>
+                                    <?php 
+                                    $col_index = 0;
+                                    foreach (array_keys($t_result[0]) as $k) {
+                                        echo "<th class='cr-sortable-col' data-col='{$col_index}' style='cursor:pointer; white-space: nowrap;' title='Clic para ordenar'>" . string_display_line($k) . " <i class='fa fa-sort' style='color:#ccc; margin-left: 5px;'></i></th>";
+                                        $col_index++;
+                                    } 
+                                    ?>
                                 </tr>
                             </thead>
                             <tbody>

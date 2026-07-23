@@ -1,12 +1,12 @@
 <?php
 class CustomReportsPlugin extends MantisPlugin {
     function register() {
-        $this->name = 'Mantis Custom Reports';
-        $this->description = 'Custom SQL Reports for MantisBT.';
+        $this->name = 'Custom Reports';
+        $this->description = 'Reportes SQL personalizados.';
         $this->page = 'config_page';
-        $this->version = '2.0.5';
+        $this->version = '2.1.0';
         $this->requires = array( 'MantisCore' => '2.0.0' );
-        $this->author = 'Cristobal Montenegro / Vincent Sels';
+        $this->author = 'Cristobal Montenegro / Based on the work of Vincent Sels';
     }
 
     function hooks() {

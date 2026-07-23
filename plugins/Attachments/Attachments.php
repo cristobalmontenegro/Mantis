@@ -4,14 +4,17 @@ class AttachmentsPlugin extends MantisPlugin {
     function register() {
         $this->name        = 'Attachments';
         $this->description = plugin_lang_get( 'title' );
-        $this->version     = '3.1';
+        $this->version     = '3.2';
         $this->requires    = array('MantisCore' => '2.0.0');
         $this->author      = 'Cristobal Montenegro basado en el trabajo de Cas Nuy';
         $this->page        = 'config';
     }
 
     function config() {
-        return array('customized' => OFF);
+        return array(
+            'customized' => OFF,
+            'pdf_only' => ON,
+        );
     }
 
     function init() {

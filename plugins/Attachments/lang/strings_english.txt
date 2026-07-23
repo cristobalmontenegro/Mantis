@@ -2,3 +2,11 @@
 $s_plugin_Attachments_title				= 'Re-instate Attachment section';
 $s_plugin_Attachments_add_file_button	= 'Upload selected file';
 $s_plugin_Attachments_customized		= 'Use Customized Setup';
+$s_plugin_Attachments_upload_title		= 'Upload Document';
+$s_plugin_Attachments_select_file		= 'Select File';
+$s_plugin_Attachments_upload_btn		= 'Upload';
+$s_plugin_Attachments_max_size			= 'Max:';
+$s_plugin_Attachments_select_pdf		= 'Select PDF';
+$s_plugin_Attachments_select_any		= 'Select File';
+$s_plugin_Attachments_pdf_only_label	= 'PDF Only';
+$s_plugin_Attachments_pdf_only_desc		= 'When enabled, only PDF files can be uploaded through the plugin form.';

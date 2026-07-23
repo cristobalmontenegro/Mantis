@@ -1,79 +1,98 @@
 <?php
-require_api( 'access_api.php' );
-require_api( 'bug_api.php' );
-require_api( 'config_api.php' );
+require_api( 'string_api.php' );
 require_api( 'constant_inc.php' );
 require_api( 'file_api.php' );
 require_api( 'gpc_api.php' );
 require_api( 'html_api.php' );
 require_api( 'print_api.php' );
 
-if( gpc_isset( 'id' ) ) {
-    $f_issue_id = gpc_get_int( 'id' );
-} else { 
-    $f_issue_id = gpc_get_int( 'bug_id' );
-}
+# Get bug ID from hook parameter or POST/GET
+$f_issue_id = ( isset( $t_bug_id ) && !empty( $t_bug_id ) ) ? $t_bug_id : gpc_get_int( 'id', gpc_get_int( 'bug_id', 0 ) );
 
-$t_allow_file_upload = file_allow_bug_upload( $f_issue_id );
+if( file_allow_bug_upload( $f_issue_id ) ) {
+    $t_customized = plugin_config_get( 'customized' );
+    $t_pdf_only = plugin_config_get( 'pdf_only' );
 
-if( $t_allow_file_upload ) {
-?>
-<div id="div_subida_adjuntos" class="col-md-12 col-xs-12">
-    <div class="space-10"></div>
-    <div class="widget-box widget-color-blue2">
-        <div class="widget-header widget-header-small">
-            <h4 class="widget-title lighter">
-                <i class="ace-icon fa fa-paperclip"></i>
-                Subir Documento al Expediente
-            </h4>
-        </div>
-        <div class="widget-body">
-            <div class="widget-main no-padding">
-                <form method="post" action="<?php echo plugin_page( 'upload_attachments' ); ?>" enctype="multipart/form-data" style="margin: 0;">
+    # MODE: Customized - Integrates as a row in the native table
+    if ( ON === $t_customized ) { ?>
+        <tr class="noprint">
+            <th class="category">
+                <i class="fa fa-paperclip"></i> <?php echo plugin_lang_get( 'add_file_button' ) ?>
+            </th>
+            <td colspan="5">
+                <form method="post" action="<?php echo plugin_page( 'upload_attachments' ); ?>" enctype="multipart/form-data" style="display: inline;">
                     <?php echo form_security_field( 'attachments_add' ); ?>
                     <input type="hidden" name="bug_id" value="<?php echo $f_issue_id ?>" />
-                    <div class="table-responsive">
-                        <table class="table table-bordered table-condensed table-striped" style="margin-bottom: 0;">
-                            <tr>
-                                <td class="category width-30" style="vertical-align: middle;">
-                                    Seleccionar PDF <br />
-                                    <span class="small grey">Máximo: <?php print_max_filesize( file_get_max_file_size() ); ?></span>
-                                </td>
-                                <td class="width-70" style="vertical-align: middle;">
-                                    <input type="file" name="ufile1[]" accept=".pdf" style="display: inline-block; padding: 5px;" />
-                                    <button type="submit" class="btn btn-primary btn-white btn-round btn-sm pull-right">
-                                        <i class="fa fa-upload"></i> Subir Archivo
-                                    </button>
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
+                    <?php if( $t_pdf_only ) { ?>
+                        <input type="file" name="ufile1[]" accept=".pdf" required style="display: inline-block;" />
+                    <?php } else { ?>
+                        <input type="file" name="ufile1[]" required style="display: inline-block;" />
+                    <?php } ?>
+                    <button type="submit" class="btn btn-primary btn-white btn-round btn-sm">
+                        <i class="fa fa-upload"></i> <?php echo plugin_lang_get( 'upload_btn' ) ?>
+                    </button>
                 </form>
+            </td>
+        </tr>
+    <?php }
+    # MODE: Default - Standalone block
+    else { ?>
+        <div id="div_subida_adjuntos" class="col-md-12 col-xs-12">
+            <div class="space-10"></div>
+            <div class="widget-box widget-color-blue2">
+                <div class="widget-header widget-header-small">
+                    <h4 class="widget-title lighter">
+                        <i class="ace-icon fa fa-paperclip"></i> <?php echo plugin_lang_get( 'upload_title' ) ?>
+                    </h4>
+                </div>
+                <div class="widget-body">
+                    <div class="widget-main no-padding">
+                        <form method="post" action="<?php echo plugin_page( 'upload_attachments' ); ?>" enctype="multipart/form-data" style="margin: 0;">
+                            <?php echo form_security_field( 'attachments_add' ); ?>
+                            <input type="hidden" name="bug_id" value="<?php echo $f_issue_id ?>" />
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-condensed table-striped" style="margin-bottom: 0;">
+                                    <tr>
+                                        <td class="category width-30" style="vertical-align: middle;">
+                                            <?php echo $t_pdf_only ? plugin_lang_get( 'select_pdf' ) : plugin_lang_get( 'select_file' ) ?> <br />
+                                            <span class="small grey"><?php echo plugin_lang_get( 'max_size' ) ?> <?php print_max_filesize( file_get_max_file_size() ); ?></span>
+                                        </td>
+                                        <td class="width-70" style="vertical-align: middle;">
+                                            <?php if( $t_pdf_only ) { ?>
+                                                <input type="file" name="ufile1[]" accept=".pdf" required style="display: inline-block; padding: 5px;" />
+                                            <?php } else { ?>
+                                                <input type="file" name="ufile1[]" required style="display: inline-block; padding: 5px;" />
+                                            <?php } ?>
+                                            <button type="submit" class="btn btn-primary btn-white btn-round btn-sm pull-right">
+                                                <i class="fa fa-upload"></i> <?php echo plugin_lang_get( 'upload_btn' ) ?>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-</div>
 
-<script>
-$(document).ready(function() {
-    var $miSeccion = $('#div_subida_adjuntos');
-    // Usamos el ID exacto que vi en tu código fuente para Relaciones
-    var $relaciones = $('#relationships');
-    
-    if ($miSeccion.length) {
-        if ($relaciones.length) {
-            // Se mueve justo ARRIBA del bloque de Relaciones
-            $miSeccion.insertBefore($relaciones.closest('.col-md-12'));
-        } else {
-            // Si el juicio no tiene relaciones, buscamos el primer bloque (Detalles) y nos ponemos después
-            var $primerBloque = $('.page-content .row > .col-md-12').first();
-            if ($primerBloque.length) {
-                $miSeccion.insertAfter($primerBloque);
+        <script>
+        $(document).ready(function() {
+            var $miSeccion = $('#div_subida_adjuntos');
+            var $relaciones = $('#relationships');
+            if ($miSeccion.length) {
+                if ($relaciones.length) {
+                    $miSeccion.insertBefore($relaciones.closest('.col-md-12'));
+                } else {
+                    var $primerBloque = $('.page-content .row > .col-md-12').first();
+                    if ($primerBloque.length) {
+                        $miSeccion.insertAfter($primerBloque);
+                    }
+                }
             }
-        }
+        });
+        </script>
+    <?php
     }
-});
-</script>
-<?php
 }
 ?>

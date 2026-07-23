@@ -28,7 +28,7 @@ $t_all_reports = custom_reports_get_all();
             </h4>
             <div class="widget-toolbar no-border">
                 <form method="post" action="<?php echo plugin_page( 'manage_reports_page' ) ?>">
-                    <button type="submit" class="btn btn(xs btn-primary btn-white btn-round">
+                    <button type="submit" class="btn btn-xs btn-primary btn-white btn-round">
                         <i class="fa fa-plus"></i> <?php echo plugin_lang_get( 'add_new_report' ) ?>
                     </button>
                 </form>

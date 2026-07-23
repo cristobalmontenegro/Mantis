@@ -8,7 +8,7 @@
    $s_plugin_CustomReports_include_period_parameters = 'Período como parámetro';
    $s_plugin_CustomReports_period_start = 'Período de inicio';
    $s_plugin_CustomReports_period_end = 'Período de finalización';
-   $s_plugin_CustomReports_include_period_parameters_info = 'Le permite usar :period_start y :period_end en la query. Si están puestos, el usuario deberá ingresar un período antes de cargar el reporte.';
+   $s_plugin_CustomReports_include_period_parameters_info = 'Permite usar :period_start y :period_end en su consulta SQL. Si se habilita, se pedirá un período antes de cargar el reporte.';
 
    $s_plugin_CustomReports_add_new_report = 'Agregar nuevo reporte';
    $s_plugin_CustomReports_report_name = 'Nombre del Reporte';
@@ -19,7 +19,8 @@
    $s_plugin_CustomReports_general_configuration = 'Configuración del plugin';
    $s_plugin_CustomReports_admin_threshold = 'Permisos de Administración';
    $s_plugin_CustomReports_view_custom_reports_threshold = 'Permisos de visualización de reportes personalizados';
-
    $s_plugin_CustomReports_update_successful = 'Query actualizado correctamente.';
-   $s_plugin_CustomReports_query_invalid_keywords = 'Query debe contener solamente SELECT\'s y no sentencias DDL o DCL.';
+   $s_plugin_CustomReports_query_invalid_keywords = 'La consulta solo debe contener sentencias SELECT, no comandos DDL o DCL.';
+   $s_plugin_CustomReports_smart_filter_placeholder = 'Filtrar (ej. error -cerrado)...';
+   $s_plugin_CustomReports_select_report = '--- Seleccionar reporte ---';
 ?>

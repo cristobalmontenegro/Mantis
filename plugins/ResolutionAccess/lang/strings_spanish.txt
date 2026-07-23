@@ -1,4 +1,4 @@
 <?php
 $s_plugin_ResolutionAccess_title = 'Control de Acceso a Resolución';
 $s_plugin_ResolutionAccess_readonly_threshold_label = 'Nivel mínimo de solo lectura';
-$s_plugin_ResolutionAccess_readonly_threshold_desc = 'Los usuarios con este nivel de acceso o inferior tendrán el campo de resolución en modo solo lectura en la página de edición del caso.';
+$s_plugin_ResolutionAccess_readonly_threshold_desc = 'Los usuarios con este nivel de acceso o inferior tendrán el campo de resolución en modo solo lectura en las páginas de edición y cambio de estado del caso.';
