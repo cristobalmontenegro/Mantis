@@ -73,9 +73,9 @@ class TOTPPlugin extends MantisPlugin
     }
 
     // Show TOTP status on admin manage user page
-    function manage_user_page($p_event_name, $p_args)
+    function manage_user_page($p_event_name, $p_user_id)
     {
-        $t_user_id = (int)$p_args[0];
+        $t_user_id = (int)$p_user_id;
         $t_totp_enabled = isUserTOTPConfigured($t_user_id);
 
         echo '<div class="space-10"></div>';
