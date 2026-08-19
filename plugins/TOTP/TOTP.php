@@ -25,7 +25,7 @@ class TOTPPlugin extends MantisPlugin
             'MantisCore' => '2.0.0',
         );
 
-        $this->author = 'BeYs Cloud / Cristobal Montenegro';
+        $this->author = 'BeYs Cloud / New version by Cristobal Montenegro';
         $this->contact = 'cmc@socorropc.com';
         $this->url = 'https://github.com/cristobalmontenegro';
         $this->page = 'config'; # Default plugin page (update)

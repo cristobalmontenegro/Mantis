@@ -3,7 +3,7 @@
 **Version 1.1.0** *Compatible with MantisBT 2.X*
 
 **Original Author:** BeYs Cloud ([@be-ys-cloud](https://github.com/be-ys-cloud)) - [MantisBT-TOTP-Plugin](https://github.com/be-ys-cloud/MantisBT-TOTP-Plugin)
-**Maintained by:** Cristobal Montenegro ([@cristobalmontenegro](https://github.com/cristobalmontenegro))
+**New version by:** Cristobal Montenegro ([@cristobalmontenegro](https://github.com/cristobalmontenegro))
 
 ---
 
@@ -219,4 +219,4 @@ mantis_plugin_TOTP_totp (
 
 ---
 
-*Developed by [Cristobal Montenegro](https://github.com/cristobalmontenegro)*
+*Based on [MantisBT-TOTP-Plugin](https://github.com/be-ys-cloud/MantisBT-TOTP-Plugin) by BeYs Cloud. New version by [Cristobal Montenegro](https://github.com/cristobalmontenegro)*
