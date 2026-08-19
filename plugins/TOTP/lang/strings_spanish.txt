@@ -16,3 +16,7 @@ $s_plugin_TOTP_totp_setup_instructions = 'Haz clic en "Habilitar TOTP" para conf
 $s_plugin_TOTP_config_issuer = 'Emisor';
 $s_plugin_TOTP_config_issuer_help = 'Nombre que se muestra en la aplicación de autenticación (ej: Google Authenticator).';
 $s_plugin_TOTP_config_save = 'Guardar configuración';
+$s_plugin_TOTP_totp_verify_title = 'Verificar configuración TOTP';
+$s_plugin_TOTP_totp_verify_instructions = 'Ingresa el código de 6 dígitos de tu aplicación de autenticación para confirmar la configuración.';
+$s_plugin_TOTP_totp_verify_error = 'El código es inválido. Verifica tu aplicación de autenticación e intenta de nuevo.';
+$s_plugin_TOTP_totp_verify_button = 'Verificar y activar';

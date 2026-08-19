@@ -16,3 +16,7 @@ $s_plugin_TOTP_totp_setup_instructions = 'Click "Enable TOTP" to set up two-fact
 $s_plugin_TOTP_config_issuer = 'Issuer';
 $s_plugin_TOTP_config_issuer_help = 'Name displayed in the authentication app (e.g., Google Authenticator).';
 $s_plugin_TOTP_config_save = 'Save configuration';
+$s_plugin_TOTP_totp_verify_title = 'Verify TOTP Setup';
+$s_plugin_TOTP_totp_verify_instructions = 'Enter the 6-digit code from your authentication app to confirm the setup.';
+$s_plugin_TOTP_totp_verify_error = 'The code is invalid. Please check your authentication app and try again.';
+$s_plugin_TOTP_totp_verify_button = 'Verify and activate';

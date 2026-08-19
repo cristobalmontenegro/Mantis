@@ -5,46 +5,51 @@ require_api('authentication_api.php');
 require_api('html_api.php');
 require_api('lang_api.php');
 require_api('print_api.php');
-require_api('user_api.php');
+require_api('session_api.php');
 
 auth_ensure_user_authenticated();
 auth_reauthenticate();
 current_user_ensure_unprotected();
 
-layout_page_header(plugin_lang_get('manage'));
-layout_page_begin();
-print_account_menu('plugin.php?page=TOTP/manage-totp');
-
 $t_user_id = auth_get_current_user_id();
 
 $isTOTPConfigured = isUserTOTPConfigured($t_user_id);
+
+layout_page_header(plugin_lang_get('manage'));
+layout_page_begin();
+print_account_menu('plugin.php?page=TOTP/manage-totp');
 ?>
 
     <div class="col-md-12 col-xs-12">
-        <div class="space-10">
-        </div>
+        <div class="space-10"></div>
 
         <div id="user-custom-fields" class="form-container">
             <h3>
                 <?php echo plugin_lang_get($isTOTPConfigured ? "totp_enabled" : "totp_not_enabled"); ?>
             </h3>
 
-            <?php
-            if ($isTOTPConfigured) {
-                echo "<p><img src='" . plugin_page('render-qrcode') . "'/></p>";
-                echo "<p><small>" . plugin_lang_get("totp_scan_qr") . "</small></p>";
-            } else {
-                echo "<p>" . plugin_lang_get("totp_setup_instructions") . "</p>";
-            }
-            ?>
-            <br/>
+            <?php if ($isTOTPConfigured) { ?>
+                <p><img src="<?php echo plugin_page('render-qrcode'); ?>" /></p>
+                <p><small><?php echo plugin_lang_get("totp_scan_qr"); ?></small></p>
 
-            <form action="<?php echo plugin_page('switch-totp-state'); ?>" method="post">
-                <?php echo form_security_field('plugin_totp_switch_state'); ?>
-                <input type="submit"
-                       value="<?php echo plugin_lang_get($isTOTPConfigured ? 'totp_disable_button' : 'totp_enable_button'); ?>"
-                       class="button-totp <?php echo $isTOTPConfigured ? 'button-totp-enabled' : 'button-totp-disabled'; ?>"/>
-            </form>
+                <form action="<?php echo plugin_page('switch-totp-state'); ?>" method="post">
+                    <?php echo form_security_field('plugin_totp_switch_state'); ?>
+                    <input type="hidden" name="action" value="disable" />
+                    <input type="submit"
+                           value="<?php echo plugin_lang_get('totp_disable_button'); ?>"
+                           class="button-totp button-totp-enabled"/>
+                </form>
+            <?php } else { ?>
+                <p><?php echo plugin_lang_get("totp_setup_instructions"); ?></p>
+
+                <form action="<?php echo plugin_page('switch-totp-state'); ?>" method="post">
+                    <?php echo form_security_field('plugin_totp_switch_state'); ?>
+                    <input type="hidden" name="action" value="enable" />
+                    <input type="submit"
+                           value="<?php echo plugin_lang_get('totp_enable_button'); ?>"
+                           class="button-totp button-totp-disabled"/>
+                </form>
+            <?php } ?>
         </div>
     </div>
 
