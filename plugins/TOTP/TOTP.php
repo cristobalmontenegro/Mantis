@@ -97,11 +97,11 @@ class TOTPPlugin extends MantisPlugin
             echo '<tr>';
             echo '<th class="category">Acciones</th>';
             echo '<td>';
-            echo '<form action="' . plugin_page('admin-disable-totp') . '" method="post">';
+            echo '<form action="' . plugin_page('admin-disable-totp') . '" method="post" onsubmit="return confirm(\'' . addslashes(plugin_lang_get('totp_admin_disable_confirm')) . '\')">';
             echo form_security_field('plugin_totp_admin_disable');
             echo '<input type="hidden" name="user_id" value="' . $t_user_id . '" />';
             echo '<input type="submit" value="' . plugin_lang_get('totp_admin_disable_button') . '" ';
-            echo 'class="btn btn-danger" onclick="return confirm(\'' . plugin_lang_get('totp_admin_disable_confirm') . '\')" />';
+            echo 'class="btn btn-danger" />';
             echo '</form>';
             echo '</td>';
             echo '</tr>';
