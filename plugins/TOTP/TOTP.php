@@ -60,6 +60,7 @@ class TOTPPlugin extends MantisPlugin
     {
         $t_hooks = array(
             'EVENT_AUTH_USER_FLAGS' => 'auth_user_flags',
+            'EVENT_MANAGE_USER_PAGE' => 'manage_user_page',
             'EVENT_MENU_ACCOUNT' => 'account_menu',
         );
 
@@ -69,6 +70,24 @@ class TOTPPlugin extends MantisPlugin
     // Add a "Manage TOTP" section in user account
     function account_menu(){
             return array( '<a href="' . plugin_page( 'manage-totp' ) . '">' . plugin_lang_get( 'manage' ) .  '</a>', );
+    }
+
+    // Show TOTP status on admin manage user page
+    function manage_user_page($p_event_name, $p_args)
+    {
+        $t_user_id = (int)$p_args[0];
+        $t_totp_enabled = isUserTOTPConfigured($t_user_id);
+
+        echo '<tr>';
+        echo '<th class="category">' . plugin_lang_get('manage') . '</th>';
+        echo '<td>';
+        if ($t_totp_enabled) {
+            echo '<span class="label label-success">' . plugin_lang_get('totp_enabled') . '</span>';
+        } else {
+            echo '<span class="label label-default">' . plugin_lang_get('totp_not_enabled') . '</span>';
+        }
+        echo '</td>';
+        echo '</tr>';
     }
 
     // Handle custom authentication
