@@ -18,9 +18,9 @@ class TOTPPlugin extends MantisPlugin
         $this->name = plugin_lang_get('title');
         $this->description = plugin_lang_get('description');
 
-        $this->version = '1.0.0';
+        $this->version = '1.1.0';
         $this->requires = array(
-            'MantisCore' => '2.3.0-dev',
+            'MantisCore' => '2.0.0',
         );
 
         $this->author = 'BeYs Cloud';

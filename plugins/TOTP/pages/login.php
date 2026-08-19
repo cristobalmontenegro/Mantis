@@ -1,36 +1,4 @@
 <?php
-# MantisBT - A PHP based bugtracking system
-
-# MantisBT is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation, either version 2 of the License, or
-# (at your option) any later version.
-#
-# MantisBT is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-#
-# You should have received a copy of the GNU General Public License
-# along with MantisBT.  If not, see <http://www.gnu.org/licenses/>.
-
-/**
- * Check login then redirect to main_page.php or to login_page.php
- *
- * @package MantisBT
- * @copyright Copyright 2000 - 2002  Kenzaburo Ito - kenito@300baud.org
- * @copyright Copyright 2002  MantisBT Team - mantisbt-dev@lists.sourceforge.net
- * @link http://www.mantisbt.org
- *
- * @uses core.php
- * @uses authentication_api.php
- * @uses config_api.php
- * @uses constant_inc.php
- * @uses gpc_api.php
- * @uses print_api.php
- * @uses session_api.php
- * @uses string_api.php
- */
 
 require_once('core.php');
 require_api('authentication_api.php');
@@ -50,7 +18,6 @@ $f_secure_session = gpc_get_bool('secure_session', false);
 $f_reauthenticate = gpc_get_bool('reauthenticate', false);
 $f_install = gpc_get_bool('install');
 
-# If upgrade required, always redirect to install page.
 if ($f_install) {
     $t_return = 'admin/install.php';
 }
@@ -64,25 +31,38 @@ $f_perm_login = $t_allow_perm_login && gpc_get_bool('perm_login');
 
 gpc_set_cookie(config_get_global('cookie_prefix') . '_secure_session', $f_secure_session ? '1' : '0');
 
-if (auth_does_password_match($t_user_id, $f_password)) {
-    // Check OTP
+$f_totp = trim($f_totp);
+if (!preg_match('/^\d{6}$/', $f_totp)) {
+    $f_totp = '';
+}
 
+if (auth_does_password_match($t_user_id, $f_password)) {
     $secret_key = retrieveTOTPForUser($t_user_id);
 
-    $key = (new Totp())->GenerateToken(Base32::decode($secret_key));
+    if ($secret_key !== '') {
+        $t_valid = false;
+        $t_current_time = time();
+        $t_step = 30;
+        $t_totp = new Totp();
 
-    if ($f_totp === $key) {
-        auth_attempt_login($f_username, $f_password, $f_perm_login);
-        session_set('secure_session', $f_secure_session);
+        for ($t_offset = -1; $t_offset <= 1; $t_offset++) {
+            $t_time = $t_current_time + ($t_offset * $t_step);
+            $t_expected = $t_totp->GenerateToken(Base32::decode($secret_key), $t_time);
 
-        if ($f_username == 'administrator' && $f_password == 'root' && (is_blank($t_return) || $t_return == 'index.php')) {
-            $t_return = 'account_page.php';
+            if (hash_equals($t_expected, $f_totp)) {
+                $t_valid = true;
+                break;
+            }
         }
 
-        $t_redirect_url = 'login_cookie_test.php?return=' . $t_return;
-        print_header_redirect($t_redirect_url);
+        if ($t_valid) {
+            auth_attempt_login($f_username, $f_password, $f_perm_login);
+            session_set('secure_session', $f_secure_session);
 
-        exit;
+            $t_redirect_url = 'login_cookie_test.php?return=' . $t_return;
+            print_header_redirect($t_redirect_url);
+            exit;
+        }
     }
 }
 
@@ -108,12 +88,11 @@ if ($t_allow_perm_login && $f_perm_login) {
 
 $t_query_text = http_build_query($t_query_args, '', '&');
 
-$t_redirect_url = auth_login_page( $t_query_text );
+$t_redirect_url = auth_login_page($t_query_text);
 
 if (HTTP_AUTH == config_get_global('login_method')) {
     auth_http_prompt();
     exit;
 }
-
 
 print_header_redirect($t_redirect_url);

@@ -1,5 +1,12 @@
 <?php
 
+require_once('core.php');
+require_api('authentication_api.php');
+require_api('html_api.php');
+require_api('lang_api.php');
+require_api('print_api.php');
+require_api('user_api.php');
+
 auth_ensure_user_authenticated();
 auth_reauthenticate();
 current_user_ensure_unprotected();
@@ -11,15 +18,10 @@ print_account_menu('plugin.php?page=TOTP/manage-totp');
 $t_user_id = auth_get_current_user_id();
 
 $isTOTPConfigured = isUserTOTPConfigured($t_user_id);
-if ($isTOTPConfigured) {
-    $secret_key = retrieveTOTPForUser($t_user_id);
-}
-
 ?>
 
     <div class="col-md-12 col-xs-12">
         <div class="space-10">
-
         </div>
 
         <div id="user-custom-fields" class="form-container">
@@ -29,15 +31,18 @@ if ($isTOTPConfigured) {
 
             <?php
             if ($isTOTPConfigured) {
-                echo "<img src='" . plugin_page('render-qrcode') . "'/><br />";
-                echo plugin_lang_get("secret_key") . ": <code>" . $secret_key . "</code>";
+                echo "<p><img src='" . plugin_page('render-qrcode') . "'/></p>";
+                echo "<p><small>" . plugin_lang_get("totp_scan_qr") . "</small></p>";
+            } else {
+                echo "<p>" . plugin_lang_get("totp_setup_instructions") . "</p>";
             }
             ?>
-            <br/><br/>
+            <br/>
 
-            <form action="<?php echo plugin_page('switch-totp-state'); ?>" method='post'>
-                <input type='submit'
-                       value='<?php echo plugin_lang_get($isTOTPConfigured ? 'totp_disable_button' : 'totp_enable_button'); ?>'
+            <form action="<?php echo plugin_page('switch-totp-state'); ?>" method="post">
+                <?php echo form_security_field('plugin_totp_switch_state'); ?>
+                <input type="submit"
+                       value="<?php echo plugin_lang_get($isTOTPConfigured ? 'totp_disable_button' : 'totp_enable_button'); ?>"
                        class="button-totp <?php echo $isTOTPConfigured ? 'button-totp-enabled' : 'button-totp-disabled'; ?>"/>
             </form>
         </div>
@@ -46,19 +51,18 @@ if ($isTOTPConfigured) {
     <style>
         .button-totp {
             border: 0;
-            border-radius: 0;
-            padding: 10px;
-            color: white
+            border-radius: 4px;
+            padding: 10px 20px;
+            color: white;
+            cursor: pointer;
         }
-
         .button-totp-enabled {
-            background: green;
+            background: #d9534f;
         }
-
         .button-totp-disabled {
-            background: darkred;
+            background: #5cb85c;
         }
     </style>
-<?php
 
+<?php
 layout_page_end();

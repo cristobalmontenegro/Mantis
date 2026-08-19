@@ -1,0 +1,15 @@
+<?php
+# Copyright (c) MantisBT Team - mantisbt-dev@lists.sourceforge.net
+# Licensed under the MIT license
+
+$s_plugin_TOTP_manage = 'Gestionar TOTP';
+$s_plugin_TOTP_totp_enabled = 'TOTP habilitado';
+$s_plugin_TOTP_totp_not_enabled = 'TOTP no habilitado';
+$s_plugin_TOTP_totp_enable_button = 'Habilitar TOTP';
+$s_plugin_TOTP_totp_disable_button = 'Deshabilitar TOTP';
+$s_plugin_TOTP_secret_key = 'Clave secreta';
+$s_plugin_TOTP_totp = 'TOTP';
+$s_plugin_TOTP_title = 'Autenticación TOTP MFA';
+$s_plugin_TOTP_description = 'Plugin para permitir a los usuarios configurar TOTP como doble autenticación (2FA) para su cuenta';
+$s_plugin_TOTP_totp_scan_qr = 'Escanea este código con tu aplicación de autenticación (Google Authenticator, Authy, etc.)';
+$s_plugin_TOTP_totp_setup_instructions = 'Haz clic en "Habilitar TOTP" para configurar la doble autenticación. Se generará un código QR que deberás escanear con tu aplicación de autenticación.';
