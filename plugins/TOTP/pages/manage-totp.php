@@ -1,12 +1,5 @@
 <?php
 
-require_once('core.php');
-require_api('authentication_api.php');
-require_api('html_api.php');
-require_api('lang_api.php');
-require_api('print_api.php');
-require_api('session_api.php');
-
 auth_ensure_user_authenticated();
 auth_reauthenticate();
 current_user_ensure_unprotected();

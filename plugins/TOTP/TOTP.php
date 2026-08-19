@@ -5,11 +5,11 @@
 # Original: https://github.com/be-ys-cloud/MantisBT-TOTP-Plugin
 # Adapted and improved by Cristobal Montenegro - https://github.com/cristobalmontenegro
 
-require_once('vendor/phpqrcode/phpqrcode.php');
-require_once('vendor/php-totp/Base32.php');
-require_once('vendor/php-totp/HOTP.php');
-require_once('vendor/php-totp/TOTP.php');
-require_once('core/database.php');
+require_once(__DIR__ . '/vendor/phpqrcode/phpqrcode.php');
+require_once(__DIR__ . '/vendor/php-totp/Base32.php');
+require_once(__DIR__ . '/vendor/php-totp/HOTP.php');
+require_once(__DIR__ . '/vendor/php-totp/TOTP.php');
+require_once(__DIR__ . '/core/database.php');
 
 class TOTPPlugin extends MantisPlugin
 {
@@ -25,7 +25,7 @@ class TOTPPlugin extends MantisPlugin
             'MantisCore' => '2.0.0',
         );
 
-        $this->author = 'BeYs Cloud / New version by Cristobal Montenegro';
+        $this->author = 'Cristobal Montenegro - basado en el trabajo de BeYs Cloud';
         $this->contact = 'cmc@socorropc.com';
         $this->url = 'https://github.com/cristobalmontenegro';
         $this->page = 'config'; # Default plugin page (update)
