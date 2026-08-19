@@ -101,6 +101,6 @@ mantis_plugin_TOTP_totp (
 
 ## Créditos / Credits
 
-- **Autor original / Original author**: BeYs Cloud (dev-cloud@be-ys.com) - https://www.be-ys.cloud
+- **Autor original / Original author**: BeYs Cloud (dev-cloud@be-ys.com) - https://www.be-ys.cloud - https://github.com/be-ys-cloud/MantisBT-TOTP-Plugin
 - **Adaptación y mejoras / Adaptation and improvements**: Cristobal Montenegro - https://github.com/cristobalmontenegro
 - Licencia / License: GPLv3

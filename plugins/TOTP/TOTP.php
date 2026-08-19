@@ -2,6 +2,7 @@
 
 # Copyright (c) BeYs Cloud - 2024. This program is proposed under GPLv3
 # See LICENSE.txt for more informations.
+# Original: https://github.com/be-ys-cloud/MantisBT-TOTP-Plugin
 # Adapted and improved by Cristobal Montenegro - https://github.com/cristobalmontenegro
 
 require_once('vendor/phpqrcode/phpqrcode.php');
