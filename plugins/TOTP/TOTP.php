@@ -60,8 +60,6 @@ class TOTPPlugin extends MantisPlugin
     {
         $t_hooks = array(
             'EVENT_AUTH_USER_FLAGS' => 'auth_user_flags',
-            'EVENT_MANAGE_USER_PAGE' => 'manage_user_page',
-            'EVENT_USER_PAGE' => 'show_user_page',
             'EVENT_MENU_ACCOUNT' => 'account_menu',
         );
 
