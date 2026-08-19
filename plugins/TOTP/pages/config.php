@@ -1,14 +1,6 @@
 <?php
-require_once('core.php');
-require_api('authentication_api.php');
-require_api('html_api.php');
-require_api('lang_api.php');
-require_api('print_api.php');
-require_api('access_api.php');
-
 auth_ensure_user_authenticated();
 auth_reauthenticate();
-access_ensure_global_level(ADMINISTRATOR);
 
 layout_page_header(plugin_lang_get('title'));
 layout_page_begin();
