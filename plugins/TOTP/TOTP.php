@@ -84,21 +84,28 @@ class TOTPPlugin extends MantisPlugin
         echo '<div class="table-responsive">';
         echo '<table class="table table-bordered table-condensed">';
         echo '<tr>';
-        echo '<th class="category" style="width:40%">' . plugin_lang_get('manage') . '</th>';
+        echo '<th class="category" style="width:40%">Estado TOTP</th>';
         echo '<td>';
         if ($t_totp_enabled) {
-            echo '<span class="label label-success">' . plugin_lang_get('totp_enabled') . '</span> ';
-            echo '<form action="' . plugin_page('admin-disable-totp') . '" method="post" style="display:inline">';
-            echo form_security_field('plugin_totp_admin_disable');
-            echo '<input type="hidden" name="user_id" value="' . $t_user_id . '" />';
-            echo '<input type="submit" value="' . plugin_lang_get('totp_admin_disable_button') . '" ';
-            echo 'class="btn btn-danger btn-xs" onclick="return confirm(\'' . plugin_lang_get('totp_admin_disable_confirm') . '\')" />';
-            echo '</form>';
+            echo '<span class="label label-success">' . plugin_lang_get('totp_enabled') . '</span>';
         } else {
             echo '<span class="label label-default">' . plugin_lang_get('totp_not_enabled') . '</span>';
         }
         echo '</td>';
         echo '</tr>';
+        if ($t_totp_enabled) {
+            echo '<tr>';
+            echo '<th class="category">Acciones</th>';
+            echo '<td>';
+            echo '<form action="' . plugin_page('admin-disable-totp') . '" method="post">';
+            echo form_security_field('plugin_totp_admin_disable');
+            echo '<input type="hidden" name="user_id" value="' . $t_user_id . '" />';
+            echo '<input type="submit" value="' . plugin_lang_get('totp_admin_disable_button') . '" ';
+            echo 'class="btn btn-danger" onclick="return confirm(\'' . plugin_lang_get('totp_admin_disable_confirm') . '\')" />';
+            echo '</form>';
+            echo '</td>';
+            echo '</tr>';
+        }
         echo '</table>';
         echo '</div>';
         echo '</div>';
