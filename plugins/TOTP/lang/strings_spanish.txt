@@ -15,3 +15,4 @@ $s_plugin_TOTP_totp_scan_qr = 'Escanea este código con tu aplicación de autent
 $s_plugin_TOTP_totp_setup_instructions = 'Haz clic en "Habilitar TOTP" para configurar la doble autenticación. Se generará un código QR que deberás escanear con tu aplicación de autenticación.';
 $s_plugin_TOTP_config_issuer = 'Emisor';
 $s_plugin_TOTP_config_issuer_help = 'Nombre que se muestra en la aplicación de autenticación (ej: Google Authenticator).';
+$s_plugin_TOTP_config_save = 'Guardar configuración';

@@ -15,3 +15,4 @@ $s_plugin_TOTP_totp_scan_qr = 'Scan this code with your authentication app (Goog
 $s_plugin_TOTP_totp_setup_instructions = 'Click "Enable TOTP" to set up two-factor authentication. A QR code will be generated for you to scan with your authentication app.';
 $s_plugin_TOTP_config_issuer = 'Issuer';
 $s_plugin_TOTP_config_issuer_help = 'Name displayed in the authentication app (e.g., Google Authenticator).';
+$s_plugin_TOTP_config_save = 'Save configuration';

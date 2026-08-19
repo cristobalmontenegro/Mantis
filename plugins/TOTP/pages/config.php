@@ -4,7 +4,6 @@ auth_reauthenticate();
 
 layout_page_header(plugin_lang_get('title'));
 layout_page_begin();
-print_admin_menu('manage_plugin_page.php');
 
 $t_issuer = plugin_config_get('issuer');
 ?>
@@ -29,7 +28,7 @@ $t_issuer = plugin_config_get('issuer');
             </div>
 
             <input type="submit" class="btn btn-primary btn-sm"
-                   value="<?php echo lang_get('config_update_button'); ?>" />
+                   value="<?php echo plugin_lang_get('config_save'); ?>" />
         </form>
     </div>
 </div>
