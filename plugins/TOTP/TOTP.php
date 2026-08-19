@@ -78,8 +78,13 @@ class TOTPPlugin extends MantisPlugin
         $t_user_id = (int)$p_args[0];
         $t_totp_enabled = isUserTOTPConfigured($t_user_id);
 
+        echo '<div class="space-10"></div>';
+        echo '<div id="totp-status-div" class="form-container">';
+        echo '<h4>' . plugin_lang_get('manage') . '</h4>';
+        echo '<div class="table-responsive">';
+        echo '<table class="table table-bordered table-condensed">';
         echo '<tr>';
-        echo '<th class="category">' . plugin_lang_get('manage') . '</th>';
+        echo '<th class="category" style="width:40%">' . plugin_lang_get('manage') . '</th>';
         echo '<td>';
         if ($t_totp_enabled) {
             echo '<span class="label label-success">' . plugin_lang_get('totp_enabled') . '</span>';
@@ -88,6 +93,9 @@ class TOTPPlugin extends MantisPlugin
         }
         echo '</td>';
         echo '</tr>';
+        echo '</table>';
+        echo '</div>';
+        echo '</div>';
     }
 
     // Handle custom authentication
