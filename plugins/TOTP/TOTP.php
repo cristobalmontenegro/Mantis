@@ -2,6 +2,7 @@
 
 # Copyright (c) BeYs Cloud - 2024. This program is proposed under GPLv3
 # See LICENSE.txt for more informations.
+# Adapted and improved by Cristobal Montenegro - https://github.com/cristobalmontenegro
 
 require_once('vendor/phpqrcode/phpqrcode.php');
 require_once('vendor/php-totp/Base32.php');
@@ -23,9 +24,9 @@ class TOTPPlugin extends MantisPlugin
             'MantisCore' => '2.0.0',
         );
 
-        $this->author = 'BeYs Cloud';
-        $this->contact = 'dev-cloud@be-ys.com';
-        $this->url = 'https://www.be-ys.cloud';
+        $this->author = 'BeYs Cloud / Cristobal Montenegro';
+        $this->contact = 'cmc@socorropc.com';
+        $this->url = 'https://github.com/cristobalmontenegro';
         $this->page = 'config'; # Default plugin page (update)
     }
 
