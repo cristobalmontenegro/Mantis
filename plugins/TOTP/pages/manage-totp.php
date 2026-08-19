@@ -22,8 +22,7 @@ print_account_menu('plugin.php?page=TOTP/manage-totp');
             </h3>
 
             <?php if ($isTOTPConfigured) { ?>
-                <p><img src="<?php echo plugin_page('render-qrcode'); ?>" /></p>
-                <p><small><?php echo plugin_lang_get("totp_scan_qr"); ?></small></p>
+                <p><?php echo plugin_lang_get("totp_enabled_info"); ?></p>
 
                 <form action="<?php echo plugin_page('switch-totp-state'); ?>" method="post">
                     <?php echo form_security_field('plugin_totp_switch_state'); ?>

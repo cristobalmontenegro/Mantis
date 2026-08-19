@@ -12,6 +12,7 @@ $s_plugin_TOTP_totp = 'TOTP';
 $s_plugin_TOTP_title = 'Authentification TOTP MFA';
 $s_plugin_TOTP_description = 'Plugin d\'authentification à deux facteurs (2FA) utilisant des codes TOTP. Les utilisateurs peuvent activer le 2FA depuis Mon Compte > Gestion TOTP.';
 $s_plugin_TOTP_totp_scan_qr = 'Scannez ce code avec votre application d\'authentification (Google Authenticator, Authy, etc.)';
+$s_plugin_TOTP_totp_enabled_info = 'L\'authentification à deux facteurs est active sur votre compte. Vous aurez besoin du code de votre application d\'authentification à chaque connexion.';
 $s_plugin_TOTP_totp_setup_instructions = 'Cliquez sur "Activer le TOTP" pour configurer l\'authentification à deux facteurs. Un code QR sera généré pour vous scanner avec votre application d\'authentification.';
 $s_plugin_TOTP_config_issuer = 'Émetteur';
 $s_plugin_TOTP_config_issuer_help = 'Nom affiché dans l\'application d\'authentification (par ex., Google Authenticator).';
