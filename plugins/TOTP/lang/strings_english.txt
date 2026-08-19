@@ -20,3 +20,5 @@ $s_plugin_TOTP_totp_verify_title = 'Verify TOTP Setup';
 $s_plugin_TOTP_totp_verify_instructions = 'Enter the 6-digit code from your authentication app to confirm the setup.';
 $s_plugin_TOTP_totp_verify_error = 'The code is invalid. Please check your authentication app and try again.';
 $s_plugin_TOTP_totp_verify_button = 'Verify and activate';
+$s_plugin_TOTP_totp_admin_disable_button = 'Disable TOTP';
+$s_plugin_TOTP_totp_admin_disable_confirm = 'Are you sure you want to disable TOTP for this user?';
