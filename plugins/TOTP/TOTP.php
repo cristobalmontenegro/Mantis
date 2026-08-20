@@ -20,7 +20,7 @@ class TOTPPlugin extends MantisPlugin
         $this->name = plugin_lang_get('title');
         $this->description = plugin_lang_get('description');
 
-        $this->version = '1.1.0';
+        $this->version = '1.2.0';
         $this->requires = array(
             'MantisCore' => '2.0.0',
         );
@@ -28,10 +28,10 @@ class TOTPPlugin extends MantisPlugin
         $this->author = 'Cristobal Montenegro - basado en el trabajo de BeYs Cloud';
         $this->contact = 'cmc@socorropc.com';
         $this->url = 'https://github.com/cristobalmontenegro';
-        $this->page = 'config'; # Default plugin page (update)
+        $this->page = 'config';
     }
 
-    // Create required SQL scheme to store informations in database
+    // Create required SQL scheme
     function schema()
     {
         $t_table_options = array(
@@ -43,7 +43,28 @@ class TOTPPlugin extends MantisPlugin
             array("CreateTableSQL", array(plugin_table("totp"), "
           user_id I NOT NULL UNIQUE,
           secret_key C(2000) NOT NULL UNIQUE
-        ", $t_table_options))
+        ", $t_table_options)),
+            array("CreateTableSQL", array(plugin_table("backup_codes"), "
+          id I NOT NULL AUTO,
+          user_id I NOT NULL,
+          code_hash C(255) NOT NULL,
+          used I NOT NULL DEFAULT 0,
+          PRIMARY KEY (id)
+        ", $t_table_options)),
+            array("CreateTableSQL", array(plugin_table("failed_attempts"), "
+          id I NOT NULL AUTO,
+          user_id I NOT NULL,
+          ip_address C(45) NOT NULL,
+          attempted_at I NOT NULL,
+          PRIMARY KEY (id)
+        ", $t_table_options)),
+            array("CreateTableSQL", array(plugin_table("remembered_devices"), "
+          id I NOT NULL AUTO,
+          user_id I NOT NULL,
+          device_hash C(255) NOT NULL,
+          expires_at I NOT NULL,
+          PRIMARY KEY (id)
+        ", $t_table_options)),
         );
     }
 
@@ -52,10 +73,14 @@ class TOTPPlugin extends MantisPlugin
     {
         return array(
             'issuer' => 'MantisBt Bug Tracker',
+            'max_failed_attempts' => 5,
+            'lockout_duration' => 900,
+            'remember_device_days' => 30,
+            'backup_codes_count' => 8,
         );
     }
 
-    // List impacted hooks by our plugin
+    // List impacted hooks
     function hooks()
     {
         $t_hooks = array(
@@ -67,7 +92,7 @@ class TOTPPlugin extends MantisPlugin
         return $t_hooks;
     }
 
-    // Add a "Manage TOTP" section in user account
+    // Add "Manage TOTP" in user account
     function account_menu(){
             return array( '<a href="' . plugin_page( 'manage-totp' ) . '">' . plugin_lang_get( 'manage' ) .  '</a>', );
     }
@@ -114,11 +139,9 @@ class TOTPPlugin extends MantisPlugin
     // Handle custom authentication
     function auth_user_flags($p_event_name, $p_args)
     {
-        // Retrieve user arguments
         $t_username = $p_args['username'];
         $t_user_id = $p_args['user_id'];
 
-        // If user does not exists (or is anonymous), let him go through standard authentication
         if (!$t_user_id || user_is_anonymous($t_user_id)) {
             return null;
         }
@@ -127,8 +150,15 @@ class TOTPPlugin extends MantisPlugin
             return null;
         }
 
+        // Check if device is remembered
+        $t_cookie_name = config_get_global('cookie_prefix') . '_totp_remember_' . $t_user_id;
+        if (isset($_COOKIE[$t_cookie_name])) {
+            $t_stored_hash = $_COOKIE[$t_cookie_name];
+            if (isDeviceRemembered($t_user_id, $t_stored_hash)) {
+                return null;
+            }
+        }
 
-        // If we reach this point, use our own authentication process.
         $t_flags = new AuthFlags();
         $t_flags->setCredentialsPage(helper_url_combine(plugin_page('login-totp', true), 'username=' . $t_username));
         return $t_flags;

@@ -42,6 +42,9 @@ if ($f_totp !== '') {
             array($t_user_id, $t_pending_secret)
         );
 
+        // Generate backup codes
+        $t_backup_codes = generateBackupCodes($t_user_id);
+        session_set('totp_backup_codes', $t_backup_codes);
         session_set('totp_pending_secret', null);
 
         print_header_redirect(plugin_page('manage-totp', true));

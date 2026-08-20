@@ -219,13 +219,20 @@ layout_login_page_begin();
 
                                         <br/>
                                         <span class="block input-icon input-icon-right">
-                                            <input id="totp" name="totp" type="password"
-                                                   placeholder="<?php echo plugin_lang_get('totp') ?>"
-                                                   size="6" maxlength="6"
-                                                   class="form-control">
+                                            <input id="totp" name="totp" type="text"
+                                                   placeholder="<?php echo plugin_lang_get('totp_code_or_backup') ?>"
+                                                   size="11" maxlength="11"
+                                                   class="form-control" autocomplete="one-time-code">
                                             <?php print_icon('fa-key', 'ace-icon'); ?>
                                         </span>
                                     </label>
+
+                                    <div class="clearfix">
+                                        <label for="totp-remember" class="inline">
+                                            <input id="totp-remember" type="checkbox" name="totp_remember" class="ace" />
+                                            <span class="lbl padding-6"><?php echo plugin_lang_get('totp_remember_device') ?></span>
+                                        </label>
+                                    </div>
 
                                     <?php if ($t_show_remember_me) { ?>
                                         <div class="clearfix">

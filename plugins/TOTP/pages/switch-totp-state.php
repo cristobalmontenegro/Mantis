@@ -33,6 +33,24 @@ if ($action === 'disable') {
             "DELETE FROM " . plugin_table("totp") . " WHERE user_id = " . db_param() . " LIMIT 1",
             array($t_user_id)
         );
+
+        // Clean up related data
+        db_query(
+            "DELETE FROM " . plugin_table("backup_codes") . " WHERE user_id = " . db_param(),
+            array($t_user_id)
+        );
+        db_query(
+            "DELETE FROM " . plugin_table("failed_attempts") . " WHERE user_id = " . db_param(),
+            array($t_user_id)
+        );
+        db_query(
+            "DELETE FROM " . plugin_table("remembered_devices") . " WHERE user_id = " . db_param(),
+            array($t_user_id)
+        );
+
+        // Clear remember cookie
+        $t_cookie_name = config_get_global('cookie_prefix') . '_totp_remember_' . $t_user_id;
+        gpc_set_cookie($t_cookie_name, '', time() - 3600, '/');
     }
 
     form_security_purge('plugin_totp_switch_state');

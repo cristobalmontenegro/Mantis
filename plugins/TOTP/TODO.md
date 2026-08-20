@@ -1,23 +1,19 @@
 # TODO - Plugin TOTP
 
+## Completados
+
+- [x] Backup codes - generar códigos de recuperación al habilitar TOTP
+- [x] Rate limiting - bloquear tras 5 intentos fallidos de TOTP (15 min)
+- [x] Record this device - cookie para 30 días sin pedir código
+- [x] Cambiar celular - regenerar QR sin deshabilitar TOTP (regenerar códigos)
+
 ## Pendientes
 
-- [ ] ~~Mostrar columna TOTP en lista de usuarios~~ — No hay evento en MantisBT para esto, requiere modificar el core
-- [ ] Agregar campo `enabled` a la tabla TOTP (para deshabilitar sin borrar la clave secreta)
+- [ ] Mostrar columna TOTP en lista de usuarios — No hay evento en MantisBT para esto, requiere modificar el core
 - [ ] Soporte idiomas adicionales (portugués, etc.)
-- [ ] Paginación en admin disable (si hay muchos usuarios)
-
-## Por verificar
-
-- [ ] Login completo con TOTP (credenciales + código) — probar flujo completo
-- [ ] Bloqueo de sesión tras múltiples intentos fallidos de TOTP
-- [ ] Compatible con Google Authenticator, Authy, Microsoft Authenticator
-- [ ] Backup codes (códigos de recuperación)
-
-## Bugs conocidos
-
-- Ninguno reportado por el usuario actualmente
+- [ ] Backup codes en PDF descargable
+- [ ] Log de eventos (quién habilitó/deshabilitó)
 
 ---
 
-*Última actualización: 2026-08-18*
+*Última actualización: 2026-08-19*
