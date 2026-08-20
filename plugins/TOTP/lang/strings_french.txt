@@ -32,5 +32,6 @@ $s_plugin_TOTP_totp_regenerate_codes_confirm = 'Êtes-vous sûr ? Les codes pré
 $s_plugin_TOTP_totp_remember_device = 'Se souvenir de cet appareil pendant 30 jours';
 $s_plugin_TOTP_totp_backup_codes_title = 'Vos codes de secours';
 $s_plugin_TOTP_totp_backup_codes_warning = 'Enregistrez ces codes dans un endroit sûr. Chaque code ne peut être utilisé qu\'une seule fois.';
+$s_plugin_TOTP_totp_download_pdf = 'Imprimer / Enregistrer en PDF';
 $s_plugin_TOTP_totp_login_failed_rate = 'Trop de tentatives échouées. Veuillez réessayer dans quelques minutes.';
 $s_plugin_TOTP_totp_backup_code_hint = 'Si vous n\'avez pas accès à votre application d\'authentification, vous pouvez utiliser un code de secours (XXXXX-XXXXX).';

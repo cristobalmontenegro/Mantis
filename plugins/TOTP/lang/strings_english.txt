@@ -32,5 +32,6 @@ $s_plugin_TOTP_totp_regenerate_codes_confirm = 'Are you sure? Previous codes wil
 $s_plugin_TOTP_totp_remember_device = 'Remember this device for 30 days';
 $s_plugin_TOTP_totp_backup_codes_title = 'Your backup codes';
 $s_plugin_TOTP_totp_backup_codes_warning = 'Save these codes in a safe place. Each code can only be used once.';
+$s_plugin_TOTP_totp_download_pdf = 'Print / Save as PDF';
 $s_plugin_TOTP_totp_login_failed_rate = 'Too many failed attempts. Please try again in a few minutes.';
 $s_plugin_TOTP_totp_backup_code_hint = 'If you don\'t have access to your authentication app, you can use a backup code (XXXXX-XXXXX).';

@@ -42,6 +42,10 @@ print_account_menu('plugin.php?page=TOTP/manage-totp');
                                 <div><?php echo $t_code; ?></div>
                             <?php } ?>
                         </div>
+                        <br>
+                        <a href="<?php echo plugin_page('backup-codes-print'); ?>" target="_blank" class="btn btn-default btn-sm">
+                            <?php echo plugin_lang_get('totp_download_pdf'); ?>
+                        </a>
                     </div>
                     <?php session_set('totp_backup_codes', null); ?>
                 <?php } ?>

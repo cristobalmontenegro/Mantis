@@ -32,5 +32,6 @@ $s_plugin_TOTP_totp_regenerate_codes_confirm = '¿Estás seguro? Los códigos an
 $s_plugin_TOTP_totp_remember_device = 'Recordar este dispositivo por 30 días';
 $s_plugin_TOTP_totp_backup_codes_title = 'Tus códigos de respaldo';
 $s_plugin_TOTP_totp_backup_codes_warning = 'Guarda estos códigos en un lugar seguro. Cada código solo se puede usar una vez.';
+$s_plugin_TOTP_totp_download_pdf = 'Imprimir / Guardar como PDF';
 $s_plugin_TOTP_totp_login_failed_rate = 'Demasiados intentos fallidos. Intenta de nuevo en unos minutos.';
 $s_plugin_TOTP_totp_backup_code_hint = 'Si no tienes acceso a tu aplicación, puedes usar un código de respaldo (XXXXX-XXXXX).';
