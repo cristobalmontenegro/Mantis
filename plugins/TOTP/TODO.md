@@ -8,11 +8,9 @@
 - [x] Cambiar celular - regenerar QR sin deshabilitar TOTP (regenerar códigos)
 - [x] Backup codes PDF - página imprimible para guardar códigos
 
-## Pendientes
+## Estado
 
-- [ ] Soporte idiomas adicionales (portugués, etc.)
-- [ ] Backup codes en PDF descargable
-- [ ] Log de eventos (quién habilitó/deshabilitó)
+Plugin completo. No hay pendientes.
 
 ---
 
