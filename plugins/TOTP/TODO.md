@@ -9,7 +9,6 @@
 
 ## Pendientes
 
-- [ ] Mostrar columna TOTP en lista de usuarios — No hay evento en MantisBT para esto, requiere modificar el core
 - [ ] Soporte idiomas adicionales (portugués, etc.)
 - [ ] Backup codes en PDF descargable
 - [ ] Log de eventos (quién habilitó/deshabilitó)
