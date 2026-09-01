@@ -17,6 +17,7 @@ Custom plugins repository for [MantisBT](https://www.mantisbt.org/).
 | [CustomReports](plugins/CustomReports/) | 2.1.0 | Custom SQL reports interface |
 | [ReminderManager](plugins/ReminderManager/) | 2.1.3 | Automated email reminders based on date custom fields |
 | [ResolutionAccess](plugins/ResolutionAccess/) | 1.0 | Restrict who can modify the Resolution field |
+| [SuspendToggle](plugins/SuspendToggle/) | 1.1 | Toggle case resolution between Open (10) and Suspended (80) without changing status |
 | [TOTP](plugins/TOTP/) | 1.1.0 | Two-factor authentication (2FA) with TOTP |
 
 ### Installation
@@ -48,6 +49,7 @@ Custom plugins repository for [MantisBT](https://www.mantisbt.org/).
 | [CustomReports](plugins/CustomReports/) | 2.1.0 | Interfaz de reportes SQL personalizados |
 | [ReminderManager](plugins/ReminderManager/) | 2.1.3 | Recordatorios automáticos por email basado en campos de fecha |
 | [ResolutionAccess](plugins/ResolutionAccess/) | 1.0 | Restringir quién puede modificar el campo Resolución |
+| [SuspendToggle](plugins/SuspendToggle/) | 1.1 | Alternar la resolución del caso entre Abierto (10) y Suspendido (80) sin cambiar el estado |
 | [TOTP](plugins/TOTP/) | 1.1.0 | Autenticación de doble factor (2FA) con TOTP |
 
 ### Instalación

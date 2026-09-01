@@ -1,0 +1,13 @@
+<?php
+$s_plugin_SuspendToggle_title = 'Suspend Toggle';
+$s_plugin_SuspendToggle_suspend_button = 'Suspend Issue';
+$s_plugin_SuspendToggle_resume_button = 'Resume Issue';
+$s_plugin_SuspendToggle_threshold_label = 'Access level';
+$s_plugin_SuspendToggle_threshold_desc = 'Users with this access level or above will see the suspend/resume button and be able to toggle the issue resolution between Open and Suspended.';
+$s_plugin_SuspendToggle_msg_suspended = 'Issue suspended successfully.';
+$s_plugin_SuspendToggle_msg_resumed = 'Issue resumed successfully.';
+$s_plugin_SuspendToggle_msg_error = 'Error updating the issue.';
+$s_plugin_SuspendToggle_block_status_label = 'Block toggle by status';
+$s_plugin_SuspendToggle_block_status_desc = 'Do not allow suspend/resume on issues whose status is equal to or greater than this value. Select "No limit" to not restrict by status.';
+$s_plugin_SuspendToggle_content_type_label = 'Require JSON Content-Type';
+$s_plugin_SuspendToggle_content_type_desc = 'When enabled, the REST endpoint rejects requests that do not indicate application/json. It is recommended to keep it enabled.';

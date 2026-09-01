@@ -1,0 +1,13 @@
+<?php
+$s_plugin_SuspendToggle_title = 'Suspender Toggle';
+$s_plugin_SuspendToggle_suspend_button = 'Suspender Juicio';
+$s_plugin_SuspendToggle_resume_button = 'Reanudar Juicio';
+$s_plugin_SuspendToggle_threshold_label = 'Nivel de acceso';
+$s_plugin_SuspendToggle_threshold_desc = 'Usuarios con este nivel de acceso o superior podrán ver el botón de suspender/reanudar y cambiar la resolución del caso entre Abierto y Suspendido.';
+$s_plugin_SuspendToggle_msg_suspended = 'Caso suspendido correctamente.';
+$s_plugin_SuspendToggle_msg_resumed = 'Caso reanudado correctamente.';
+$s_plugin_SuspendToggle_msg_error = 'Error al actualizar el caso.';
+$s_plugin_SuspendToggle_block_status_label = 'Bloquear toggle por estado';
+$s_plugin_SuspendToggle_block_status_desc = 'No permitir suspender/reanudar casos cuyo estado sea igual o superior a este valor. Selecciona "Sin límite" para no restringir por estado.';
+$s_plugin_SuspendToggle_content_type_label = 'Exigir Content-Type JSON';
+$s_plugin_SuspendToggle_content_type_desc = 'Si está activado, el endpoint REST rechaza peticiones que no indiquen application/json. Se recomienda mantenerlo activado.';
