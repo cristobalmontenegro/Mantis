@@ -1,6 +1,6 @@
 # MantisBT Bug Relation Priority
 
-**Version 2.0.3** *Compatible with MantisBT 2.X*
+**Version 3.0.0** *Compatible with MantisBT 2.X*
 
 **Author:** Cristobal Montenegro ([@cristobalmontenegro](https://github.com/cristobalmontenegro))
 
@@ -10,28 +10,35 @@
 
 ### Description
 
-This plugin adds a **Priority** column to the bug relations table on the bug view page. When viewing an issue that has related bugs (via `related issues`), the plugin displays each related bug's priority level directly in the relationships table, making it easier to assess the importance of linked issues at a glance.
+This plugin adds **configurable columns** to the bug relations table on the bug view page. Out of the box it shows each related bug's *Priority* and *Resolution* next to the columns the MantisBT core already renders, and it can optionally add any custom field.
+
+Configuration is global and lives at `plugin.php?page=BugRelationPriority/config`; only users with the Manager access level (or whatever `manage_plugin_threshold` allows) can open it.
 
 ### How It Works
 
-1. The plugin hooks into `EVENT_LAYOUT_RESOURCES` and `EVENT_LAYOUT_PAGE_FOOTER` on the bug view page (`view.php`).
-2. On page load, a PHP script queries the database for all bugs related to the current issue (both source and destination relationships).
-3. For each related bug, the plugin verifies the current user has permission to view it (`view_bug_threshold`) before including its priority.
-4. Priority data is passed to the client via a hidden `<div>` with a JSON `data-priorities` attribute.
-5. A JavaScript file (`priority.js`) reads this data and dynamically inserts a new **Priority** column into the relations HTML table, positioned just before the last column.
+1. The plugin hooks into `EVENT_LAYOUT_RESOURCES` and `EVENT_LAYOUT_PAGE_FOOTER` on the bug view page (`view.php`) only.
+2. `build_plan()` calls `relationship_get_all()` to collect the related bugs, then filters each one through `filter_viewable()` with the `view_bug_threshold` of the related bug's own project.
+3. All values for the active columns are fetched in a single query (`query_native()` for core fields, one bulk load for custom fields) — no per-row queries.
+4. The resulting JSON plan is embedded in a hidden `<div id="brp-plan" data-plan="...">`.
+5. `relationcolumns.js` reads the plan and rebuilds the table: it inserts a `<thead>`, adds one `<th>`/`<td>` per active column, drops the core columns the manager chose to hide, and keeps the last cell (which holds the *delete relationship* button) in place.
 
 ### Features
 
-- **Permission-aware**: Only shows priority data for related bugs the current user is allowed to view.
-- **Localized priority names**: Uses MantisBT's `get_enum_element()` to display priority labels in the user's configured language.
-- **Non-invasive**: Injects data via a hidden element and JS DOM manipulation — no core file modifications required.
-- **Fallback value**: Displays "N/D" (No Data) when priority information is unavailable.
+- **Configurable**: pick any combination of core fields (*Priority*, *Resolution*, *Category*, *Reporter*, *Updated*, *Created*) and custom fields, and reorder them.
+- **Optional header row**: the core renders the relations table without a `<thead>`; the plugin can add one with a single checkbox.
+- **Core columns can be hidden**: *Assigned to* and *Project* can be removed. *Client* (the summary) can never be hidden because it holds the delete button.
+- **Permission-aware**: values are only emitted for related bugs the current user may view, checked per project.
+- **Localized labels**: uses `get_enum_element()` for priority/resolution and `string_custom_field_value()` for custom fields.
+- **Non-invasive**: no core file changes, no database schema changes, no AJAX round-trips.
+- **Fallback value**: shows *N/D* when a related bug has no value in that column.
 
 ### Installation
 
 1. Upload the `BugRelationPriority` folder to the `plugins/` directory of your MantisBT installation.
-2. Go to **Manage > Manage Plugins** in your MantisBT interface.
-3. Find **Prioridad en Relaciones** in the list of Available Plugins and click **Install**.
+2. Go to **Manage > Manage Plugins** and click **Install** on the plugin.
+3. Open `plugin.php?page=BugRelationPriority/config` to choose the columns.
+
+Upgrading from 2.x requires no schema migration: the new settings fall back to their defaults (`Priority` + `Resolution`, header shown) until the configuration page is saved.
 
 ### Requirements
 
@@ -43,28 +50,52 @@ This plugin adds a **Priority** column to the bug relations table on the bug vie
 
 ### Descripción
 
-Este plugin agrega una columna de **Prioridad** a la tabla de relaciones en la página de visualización de casos. Al ver un caso que tiene errores relacionados (a través de `casos relacionados`), el plugin muestra el nivel de prioridad de cada caso relacionado directamente en la tabla de relaciones, facilitando la evaluación de la importancia de los casos vinculados de un vistazo.
+Este plugin agrega **columnas configurables** a la tabla de relaciones de la página de visualización de casos. Por defecto muestra el *Tipo de Juicio* (prioridad) y la *Resolución* de cada caso relacionado, junto a las columnas que el core ya dibuja, y opcionalmente cualquier campo personalizado.
+
+La configuración es global y está en `plugin.php?page=BugRelationPriority/config`. Solo los usuarios con nivel de acceso Manager (o el que permita `manage_plugin_threshold`) pueden abrirla.
 
 ### Cómo Funciona
 
-1. El plugin se engancha a `EVENT_LAYOUT_RESOURCES` y `EVENT_LAYOUT_PAGE_FOOTER` en la página de visualización del caso (`view.php`).
-2. Al cargar la página, un script PHP consulta la base de datos para obtener todos los casos relacionados con el caso actual (tanto relaciones de origen como de destino).
-3. Para cada caso relacionado, el plugin verifica que el usuario actual tenga permiso para verlo (`view_bug_threshold`) antes de incluir su prioridad.
-4. Los datos de prioridad se pasan al cliente a través de un `<div>` oculto con un atributo JSON `data-priorities`.
-5. Un archivo JavaScript (`priority.js`) lee estos datos e inserta dinámicamente una columna de **Prioridad** en la tabla HTML de relaciones, posicionada justo antes de la última columna.
+1. El plugin se engancha a `EVENT_LAYOUT_RESOURCES` y `EVENT_LAYOUT_PAGE_FOOTER`, únicamente en la página de visualización del caso (`view.php`).
+2. `build_plan()` llama a `relationship_get_all()` para reunir los casos relacionados y luego pasa cada uno por `filter_viewable()` usando el `view_bug_threshold` del proyecto al que pertenece el relacionado.
+3. Los valores de todas las columnas activas se obtienen en una sola consulta (`query_native()` para campos del core y una carga masiva para los personalizados); no hay consultas por fila.
+4. El plan resultante se incrusta como JSON en un `<div id="brp-plan" data-plan="...">` oculto.
+5. `relationcolumns.js` lee el plan y reconstruye la tabla: inserta un `<thead>`, agrega un `<th>`/`<td>` por columna activa, elimina las columnas del core que el administrador decidió ocultar y mantiene en su lugar la última celda, que contiene el botón de borrar la relación.
+
+### Configuración por defecto
+
+| # | Columna | Origen |
+|---|---------|--------|
+| 1 | Relación | core |
+| 2 | Juicio # | core |
+| 3 | Estado | core |
+| 4 | Asignada a | core |
+| 5 | Provincia/Bufete | core (solo si la relación cruza proyectos) |
+| 6 | Tipo de Juicio | campo `priority` |
+| 7 | Resolución | campo `resolution` |
+| 8 | Cliente | core (contiene el botón de borrar) |
 
 ### Características
 
-- **Respetuoso con permisos**: Solo muestra datos de prioridad para casos relacionados que el usuario tiene permiso de ver.
-- **Nombres de prioridad localizados**: Usa `get_enum_element()` de MantisBT para mostrar las etiquetas de prioridad en el idioma configurado por el usuario.
-- **No invasivo**: Inyecta datos a través de un elemento oculto y manipulación del DOM con JS — no requiere modificaciones en archivos centrales de MantisBT.
-- **Valor de respaldo**: Muestra "N/D" (Sin Datos) cuando la información de prioridad no está disponible.
+- **Configurable**: combina cualquier grupo de campos del core (*Tipo de Juicio*, *Resolución*, *Severidad*, *Unidad/Competencia*, *Abogado Informante*, *Última actualización*, *Fecha de creación*), las **Etiquetas** del caso, su **Description** y cualquier campo personalizado, y reordénalos con los botones Subir/Bajar.
+- **Dos secciones en la configuración**: *Campos del sistema* y *Campos personalizados*. La numeración del orden es por sección, para que no salgan huecos.
+- **Encabezado opcional**: el core dibuja la tabla sin cabecera; el plugin puede agregar una con un solo checkbox.
+- **Ocultar columnas del core**: se pueden quitar *Estado*, *Asignada a* y *Provincia/Bufete*. *Relación*, *Juicio #* y *Cliente* no se pueden ocultar: los dos primeros son la identidad de la fila y *Cliente* contiene el botón de borrar.
+- **Etiquetas y Description**: se obtienen con la API del core (`tag_bug_get_attached()` y `bug_get_text_field()`). La Description se recorta a 120 caracteres y se le quitan las etiquetas HTML para que no descuadre la tabla.
+- **Respetuoso con permisos**: solo se emiten valores de casos relacionados que el usuario puede ver, validando proyecto por proyecto.
+- **Etiquetas localizadas**: usa `get_enum_element()` para tipo de juicio, resolución y severidad, y `string_custom_field_value()` para los personalizados.
+- **No invasivo**: sin cambios en el core, sin cambios de esquema de base de datos y sin llamadas AJAX.
+- **Valor de respaldo**: muestra *N/D* cuando el caso relacionado no tiene valor en esa columna.
 
 ### Instalación
 
 1. Sube la carpeta `BugRelationPriority` al directorio `plugins/` de tu instalación de MantisBT.
-2. Ve a **Administración > Administrar Plugins** en tu interfaz de MantisBT.
-3. Encuentra **Prioridad en Relaciones** en la lista de Plugins Disponibles y haz clic en **Instalar**.
+2. Ve a **Administración > Administrar Plugins** y haz clic en **Instalar**.
+3. Entra a `plugin.php?page=BugRelationPriority/config` para elegir las columnas.
+
+**Al actualizar desde 2.x:** sustituye la carpeta completa del plugin. Se borra `files/priority.js`, que ya no se usa, y se agregan los directorios `lang/` y `pages/`. No requiere migración de base de datos ni reinstalar el plugin: los ajustes nuevos toman sus valores por defecto (*Tipo de Juicio* + *Resolución*, con encabezado) hasta que se guarde la página de configuración.
+
+Si el navegador muestra la versión anterior, haz una recarga forzada (Ctrl+F5): la URL del JS no cambia entre versiones.
 
 ### Requisitos
 
@@ -74,6 +105,7 @@ Este plugin agrega una columna de **Prioridad** a la tabla de relaciones en la p
 
 ### Change Log / Historial de Cambios
 
+-   **3.0.0:** Columnas configurables con orden, encabezado opcional, ocultamiento de columnas del core, posición de inserción, texto para valores vacíos y página de configuración para Manager. Añade *Severidad*, *Etiquetas* y *Description* a las columnas disponibles, y organiza la configuración en dos secciones (*Campos del sistema* / *Campos personalizados*). Consulta única para todos los relacionados.
 -   **2.0.3:** Security hardening — permission checks, input validation, XSS prevention via `htmlspecialchars()`.
 -   **2.0.2:** Added `bug_exists()` validation for related bugs.
 -   **2.0.1:** Added page-scoped injection (only activates on `view.php`).

@@ -13,7 +13,7 @@ Custom plugins repository for [MantisBT](https://www.mantisbt.org/).
 | Plugin | Version | Description |
 |--------|---------|-------------|
 | [Attachments](plugins/Attachments/) | 3.2 | Custom attachment upload form with upload date display |
-| [BugRelationPriority](plugins/BugRelationPriority/) | 2.0.3 | Adds a priority column to the bug relations table |
+| [BugRelationPriority](plugins/BugRelationPriority/) | 3.0.0 | Configurable columns (core, tags, description and custom fields) in the bug relations table |
 | [CustomReports](plugins/CustomReports/) | 2.1.0 | Custom SQL reports interface |
 | [ReminderManager](plugins/ReminderManager/) | 2.1.3 | Automated email reminders based on date custom fields |
 | [ResolutionAccess](plugins/ResolutionAccess/) | 1.0 | Restrict who can modify the Resolution field |
@@ -45,7 +45,7 @@ Custom plugins repository for [MantisBT](https://www.mantisbt.org/).
 | Plugin | Versión | Descripción |
 |--------|---------|-------------|
 | [Attachments](plugins/Attachments/) | 3.2 | Formulario de adjuntos personalizado con fecha de subida |
-| [BugRelationPriority](plugins/BugRelationPriority/) | 2.0.3 | Agrega columna de prioridad en la tabla de relaciones |
+| [BugRelationPriority](plugins/BugRelationPriority/) | 3.0.0 | Columnas configurables (core, etiquetas, description y campos personalizados) en la tabla de relaciones |
 | [CustomReports](plugins/CustomReports/) | 2.1.0 | Interfaz de reportes SQL personalizados |
 | [ReminderManager](plugins/ReminderManager/) | 2.1.3 | Recordatorios automáticos por email basado en campos de fecha |
 | [ResolutionAccess](plugins/ResolutionAccess/) | 1.0 | Restringir quién puede modificar el campo Resolución |

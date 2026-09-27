@@ -1,0 +1,38 @@
+/* BugRelationPriority - estilos de las columnas adicionales y del encabezado
+   de la tabla de relaciones. El core no define encabezado para esa tabla, asi
+   que se da el mismo tratamiento visual que al resto de tablas del tema Ace. */
+
+#relationships .widget-main table thead th {
+	font-size: 12px;
+	text-transform: uppercase;
+	letter-spacing: .4px;
+	color: #707070;
+	background: #f5f5f5;
+	border-bottom: 2px solid #ddd;
+	vertical-align: middle;
+	white-space: nowrap;
+}
+
+#relationships .widget-main table thead th.brp-extra-head {
+	background: #eef3f8;
+}
+
+#relationships td.brp-extra-cell {
+	vertical-align: middle;
+	white-space: nowrap;
+}
+
+#relationships td.brp-extra-cell .brp-extra-value {
+	display: inline-block;
+	font-size: 12px;
+}
+
+/* Las columnas del core se verian mas anchas al agregar columnas nuevas. */
+#relationships .widget-main table td {
+	vertical-align: middle;
+}
+
+#relationships .widget-main table thead th a,
+#relationships .widget-main table thead th span {
+	color: inherit;
+}
